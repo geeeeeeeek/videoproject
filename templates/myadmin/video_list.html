@@ -1,0 +1,84 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3 class="ui header six wide column">视频列表</h3>
+        <div class="v-title-extra ten wide column">
+            <div class="ui action input v-admin-search">
+                <input type="text" placeholder="Search..."  value="{{q}}" id="v-search">
+                <button class="ui small button" id="search">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <table class="ui unstackable single line striped selectable table">
+            <thead>
+            <tr><th>标题</th><th>状态</th><th>访问次数</th><th>创建时间</th><th>操作</th></tr>
+            </thead>
+            <tbody class="video-list">
+
+            {% for item in video_list %}
+            <tr video-id="{{item.id}}">
+                <td> {{item.title}}</td>
+                <td> {{item.get_status_display}}</td>
+                <td> {{item.view_count}}</td>
+                <td> {{item.create_time|date:'Y-m-d H:i'}}</td>
+                <td>
+                    <a class="ui primary button video-edit" href="{% url 'myadmin:video_edit' item.id %}">编辑</a>
+                    <a class="ui button video-delete">删除</a>
+                </td>
+            </tr>
+            {% empty %}
+            <h3>暂无数据</h3>
+            {% endfor %}
+
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="6">
+                    {% if is_paginated %}
+                    <div class="video-page">
+                        <div class="ui borderless pagination menu">
+                            {% if page_obj.has_previous %}
+                            <a class="item" href="?page={{ page_obj.previous_page_number }}&q={{ q }}"><i class="left arrow icon"></i></a></a>
+                            {% endif %}
+                            {% for i in page_list %}
+                            {% if page_obj.number == i %}
+                            <a class="active item">{{ i }}</a>
+                            {% else %}
+                            <a class="item" href="?page={{ i }}&q={{ q }}">{{ i }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <a class="item" href="?page={{ page_obj.next_page_number }}&q={{ q }}"><i class="icon right arrow"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+{% include "myadmin/video_list_modal.html" %}
+{% endblock modal %}
+
+{% block javascript %}
+<script>
+   var api_video_delete = "{% url 'myadmin:video_delete' %}";
+   var search_url = "{% url 'myadmin:video_list' %}"
+
+</script>
+<script src="{% static 'js/myadmin/video_list.js' %}?v=1"></script>
+{% endblock javascript %}

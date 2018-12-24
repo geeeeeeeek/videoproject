@@ -1,0 +1,79 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3>视频资料</h3>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <div class="v-form-wrap">
+
+            <form class="ui form" novalidate method="post" action="{% url 'myadmin:video_publish' form.instance.pk %}"
+                  enctype="multipart/form-data" role="form">
+                {% csrf_token %}
+                <input name="video_id" id="video_id" type="hidden">
+                <div class="field">
+                    <label>视频标题</label>
+                    {{ form.title }}
+                </div>
+                <div class="field">
+                    <label>视频描述</label>
+                    {{ form.desc }}
+                </div>
+                 {{form.status}}
+                <div class="field">
+                    <label>视频封面</label>
+                    {% thumbnail video.cover "200x200" crop="center" as im %}
+                      <img class="ui small image" src="{{ im.url }}">
+                    {% empty %}
+                    {% endthumbnail %}
+
+                    <div class="v-form-field">
+                        <label class="ui large green label" for="id_cover">
+                            <i class="upload icon"></i> 上传封面
+                             {{form.cover}}
+                        </label>
+                        <span id="file_is_choose" class="n">文件已选择</span>
+                    </div>
+                </div>
+
+
+                <button class="ui primary button" type="submit">发布</button>
+
+                {% include "base/form_errors.html" %}
+                {% include "base/form_messages.html" %}
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+{% endblock modal %}
+
+{% block javascript %}
+
+<script>
+$(function(){
+
+    $('.ui .dropdown').dropdown();
+
+    $("#id_cover").change(function(){
+        $("#file_is_choose").show()
+    });
+
+});
+</script>
+
+<script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
+
+{% endblock javascript %}

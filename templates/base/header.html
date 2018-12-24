@@ -1,0 +1,52 @@
+{% load static %}
+{% load thumbnail %}
+
+<div class="ui sticky fixed  menu">
+    <div class="ui container">
+        <a href="/" class="borderless header item">
+            <img class="logo" src="{% static 'img/logo.png' %}">
+            视点
+        </a>
+        <div class="v-header-extra">
+            <div class="ui small icon input v-video-search">
+                <input class="prompt" value="{{ q }}" type="text" placeholder="搜索视频" id="v-search">
+                <i id="search" class="search icon" style="cursor:pointer;"></i>
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="ui inline dropdown" id="v-header-avatar" style="">
+                <div class="" style="display:inline-block;font-weight:bold;">
+                    {% thumbnail user.avatar "200x200" crop="center" as im %}
+                    <img class="ui avatar image" src="{{ im.url }}">
+                    {% empty %}
+                    <img class="ui avatar image" src="{% static 'img/img_default_avatar.png' %}">
+                    {% endthumbnail %}
+                    {{ user.username }}
+                </div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item" onclick="window.location='{% url 'users:profile' user.pk %}';">
+                        <i class="user icon"></i>
+                        <span>个人资料</span>
+                    </div>
+                    <div class="item" onclick="window.location='{% url 'users:collect_videos' user.pk %}';">
+                        <i class="bookmark icon"></i>
+                        <span>我的收藏</span>
+                    </div>
+                    <div class="item" onclick="window.location='{% url 'users:like_videos' user.pk %}';">
+                        <i class="heart icon"></i>
+                        <span>我的喜欢</span>
+                    </div>
+                    <div class="item" onclick="window.location='{% url 'users:logout' %}';">
+                        <i class="sign-out icon"></i>
+                        <span>退出</span>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <a class="ui tiny secondary basic button" id="v-header-login" href="{% url 'users:login' %}?next={{ request.path }}">登录</a>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

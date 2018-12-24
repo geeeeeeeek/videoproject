@@ -1,0 +1,89 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3>视频编辑</h3>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <div class="v-form-wrap">
+
+            <form class="ui form" novalidate method="post" action="{% url 'myadmin:video_edit' form.instance.pk %}"
+                  enctype="multipart/form-data" role="form">
+                {% csrf_token %}
+                <input name="video_id" id="video_id" type="hidden">
+                <div class="field">
+                    <label>视频标题</label>
+                    {{ form.title }}
+                </div>
+                <div class="field">
+                    <label>视频描述</label>
+                    {{ form.desc }}
+                </div>
+
+                 <div class="field">
+                    <label>发布状态</label>
+                    <div class="ui selection  dropdown">
+                        {{form.status}}
+                        <i class="dropdown icon"></i>
+                        <div class="default text">请选择</div>
+                        <div class="menu">
+                            <div class="item" data-value="0">发布</div>
+                            <div class="item" data-value="1">取消发布</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>视频封面</label>
+                    {% thumbnail video.cover "200x200" crop="center" as im %}
+                      <img class="ui small image" src="{{ im.url }}">
+                    {% empty %}
+                    {% endthumbnail %}
+
+                    <div class="v-form-field">
+                        <label class="ui large green label" for="id_cover">
+                            <i class="upload icon"></i> 上传封面
+                             {{form.cover}}
+                        </label>
+                        <span id="file_is_choose" class="n">文件已选择</span>
+                    </div>
+                </div>
+                <button class="ui primary button" type="submit">保存</button>
+
+                {% include "base/form_errors.html" %}
+                {% include "base/form_messages.html" %}
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+{% endblock modal %}
+
+{% block javascript %}
+
+<script>
+$(function(){
+
+    $('.ui .dropdown').dropdown();
+
+    $("#id_cover").change(function(){
+        $("#file_is_choose").show()
+    });
+
+});
+</script>
+<script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
+
+{% endblock javascript %}

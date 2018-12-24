@@ -1,0 +1,36 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="基于Django的视频点播网站">
+    <title>视点</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}?v=">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=">
+    {% block css %}{% endblock css %}
+</head>
+<body>
+
+{% include "base/header.html" %}
+<div class="ui container" id="v-content">
+    {% block content %}
+    {% endblock content %}
+</div>
+{% include "base/footer.html" %}
+
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
+<script>
+    var search_url = "{% url 'video:search_result' %}"
+</script>
+<script src="{% static 'js/header.js' %}?"></script>
+
+{% block javascript %}
+{% endblock javascript %}
+
+{% block modal %}
+{% endblock modal %}
+
+</body>
+</html>

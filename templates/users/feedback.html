@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="v-settings">
+    <div class="ui two column grid ">
+        <div class="four wide column">
+            {% include "base/left_nav.html" %}
+        </div>
+        <div class="twelve wide column">
+            <div class="v-settings-content">
+                <form class="ui form" novalidate action="{% url 'users:feedback' %}" enctype="multipart/form-data" method="post" role="form">
+                    {% csrf_token %}
+                    <div class="sixteen wide  field ">
+                        <label>反馈与建议</label>
+                        <div class="field">
+                            {{ form.content }}
+                        </div>
+                    </div>
+
+                    <div class="sixteen wide  field ">
+                        <label>联系方式</label>
+                        <div class="field">
+                            {{ form.contact }}
+                        </div>
+                    </div>
+
+                    <button class="ui primary button" type="submit">提交</button>
+
+                    {% include "base/form_errors.html" %}
+                    {% include "base/form_messages.html" %}
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript">
+$('.ui .dropdown').dropdown();
+
+</script>
+<script src="{% static 'js/left_nav.js' %}"></script>
+{% endblock javascript %}

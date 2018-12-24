@@ -1,0 +1,81 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3 class="ui header six wide column">评论列表</h3>
+        <div class="v-title-extra ten wide column">
+            <div class="ui action input v-admin-search">
+                <input type="text" placeholder="Search..."  value="{{q}}" id="v-search">
+                <button class="ui small button" id="search">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <table class="ui unstackable single line striped selectable table">
+            <thead>
+            <tr><th>用户</th><th>昵称</th><th>评论内容</th></th><th>时间</th><th>操作</th></tr>
+            </thead>
+            <tbody class="video-list">
+
+            {% for item in comment_list %}
+            <tr comment-id="{{item.id}}">
+                <td> {{item.user_id}}</td>
+                <td> {{item.nickname}}</td>
+                <td> {{item.content}}</td>
+                <td> {{item.timestamp|date:'Y-m-d H:i'}}</td>
+                <td>
+                    <a class="ui button comment-delete">删除</a>
+                </td>
+            </tr>
+            {% empty %}
+            <h3>暂无数据</h3>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="6">
+                    {% if is_paginated %}
+                    <div class="video-page">
+                        <div class="ui borderless pagination menu">
+                            {% if page_obj.has_previous %}
+                            <a class="item" href="?page={{ page_obj.previous_page_number }}&q={{ q }}"><i class="left arrow icon"></i></a></a>
+                            {% endif %}
+                            {% for i in page_list %}
+                            {% if page_obj.number == i %}
+                            <a class="active item">{{ i }}</a>
+                            {% else %}
+                            <a class="item" href="?page={{ i }}&q={{ q }}">{{ i }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <a class="item" href="?page={{ page_obj.next_page_number }}&q={{ q }}"><i class="icon right arrow"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+{% include "myadmin/comment_list_modal.html" %}
+{% endblock modal %}
+
+{% block javascript %}
+<script>
+    var search_url = "{% url 'myadmin:comment_list' %}"
+    var api_comment_delete = "{% url 'myadmin:comment_delete' %}"
+</script>
+<script src="{% static 'js/myadmin/comment_list.js' %}?v=1"></script>
+{% endblock javascript %}

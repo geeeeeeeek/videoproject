@@ -1,0 +1,59 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}?v=1"/>
+</head>
+<body>
+<div class="ui inverted huge borderless fixed fluid menu">
+    <a class="header item">
+        <img src="{% static 'img/logo.png' %}" id="logo">后台管理
+    </a>
+    <div class="right menu">
+        <a class="item" href="/" target="_blank">前台首页</a>
+        <a class="item">后台首页</a>
+        <a class="item">帮助</a>
+        <a class="item" href="{% url 'myadmin:logout' %}">退出</a>
+    </div>
+</div>
+<div class="ui grid">
+    <div class="row">
+        <div class="column" id="sidebar">
+            <div class="ui secondary vertical fluid menu">
+                <a class="item">总览</a>
+                <div class="ui divider"></div>
+                <a class="item" href="{% url 'myadmin:video_list' %}">视频列表</a>
+                <a class="item" href="{% url 'myadmin:video_add' %}">添加视频</a>
+                <div class="ui divider"></div>
+                <a class="item">用户列表</a>
+                <a class="item">添加用户</a>
+                <div class="ui divider"></div>
+                <a class="item" href="{% url 'myadmin:comment_list' %}">评论管理</a>
+                <div class="ui divider"></div>
+                <a class="item">数据分析</a>
+                <a class="item">广告管理</a>
+                <div class="ui divider"></div>
+                <a class="item">设置</a>
+            </div>
+        </div>
+    </div>
+    <div class="column" id="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+</div>
+
+{% block modal %}
+{% endblock modal %}
+
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
+{% block javascript %}
+{% endblock javascript %}
+
+
+</body>
+</html>

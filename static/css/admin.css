@@ -1,0 +1,95 @@
+body {
+    display: relative;
+}
+
+.n{
+    display:none;
+}
+
+#logo{
+    margin-right: 16px;
+}
+#sidebar {
+    position: fixed;
+    top: 51.8px;
+    left: 0;
+    bottom: 0;
+    width: 18%;
+    background-color: #f5f5f5;
+    padding: 0px;
+}
+
+#sidebar .ui.menu {
+    margin: 2em 0 0;
+    font-size: 16px;
+}
+
+#sidebar .ui.menu > a.item {
+    color: #337ab7;
+    border-radius: 0 !important;
+}
+
+#sidebar .ui.menu > a.item.active {
+    background-color: #337ab7;
+    color: white;
+    border: none !important;
+}
+
+#sidebar .ui.menu > a.item:hover {
+    background-color: #4f93ce;
+    color: white;
+}
+
+#content {
+    margin-left: 19%;
+    width: 81%; 
+    margin-top: 3em;
+    padding-left: 3em;
+    float: left;
+}
+
+#content > .ui.grid {
+    padding-right: 4em;
+    padding-bottom: 3em;
+}
+
+#content h1 {
+    font-size: 36px;
+}
+
+#content .ui.divider:not(.hidden) {
+    margin: 0;
+}
+
+#content table.ui.table {
+    border: none;
+}
+
+#content table.ui.table thead th {
+    border-bottom: 2px solid #eee !important;
+}
+
+.v-title-extra{ 
+    text-align: right;   
+}
+
+.v-admin-search{ 
+    width: 50%;
+}
+
+#progress_layout{
+    margin-top:2rem;
+}
+
+.v-form-wrap {
+     width: 600px;
+}
+.v-form-wrap .form{
+    margin:2rem auto;
+}
+
+.v-form-field{
+    padding-top:1em;
+    padding-bottom:1em;
+    vertical-align:middle;
+}

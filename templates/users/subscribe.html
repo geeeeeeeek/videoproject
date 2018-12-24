@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="v-settings">
+  <div class="ui two column grid ">
+     <div class="four wide column">
+         {% include "base/left_nav.html" %}
+     </div>
+     <div class="twelve wide column">
+      <div class="v-settings-content">
+        <form class="ui form" method="post" action="{% url 'users:subscribe' form.instance.pk %}" enctype="multipart/form-data" role="form">
+            {% csrf_token %}
+           <div class="sixteen wide inline field v-form-field">
+              <div class="ui checkbox">
+                  {{form.subscribe}}
+                  <label>接收邮件通知</label>
+                </div>
+            </div>
+            <button class="ui primary button" type="submit">保存</button>
+            {% include "base/form_errors.html" %}
+            {% include "base/form_messages.html" %}
+        </form>
+      </div>
+     </div>
+
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script  type="text/javascript" >
+$('.ui .dropdown').dropdown();
+</script>
+<script src="{% static 'js/left_nav.js' %}"></script>
+{% endblock javascript %}
+

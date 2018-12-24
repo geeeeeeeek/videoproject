@@ -1,0 +1,17 @@
+
+{% if form.errors %}
+<div class="ui info message">
+    <ul class="list">
+
+        {% for field in form %}
+        {% for error in field.errors %}
+        <li class="item">{{ error|escape }}</li>
+        {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+        <li class="item">{{ error|escape }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endif %}

@@ -1,0 +1,18 @@
+<div class="ui secondary vertical pointing menu">
+    <a id="id_profile" class="link item" href="{% url 'users:profile' user.pk %}">
+        <i class="grey user icon"></i>
+        <span class="v-nav-title">个人资料</span>
+    </a>
+    <a id="id_password" class="link item" href="{% url 'users:change_password' %}">
+        <i class="grey edit icon"></i>
+        <span class="v-nav-title">修改密码</span>
+    </a>
+    <a id="id_subscribe" class="link item" href="{% url 'users:subscribe' user.pk %}">
+        <i class="grey rss icon"></i>
+        <span class="v-nav-title">订阅设置</span>
+    </a>
+    <a id="id_feedback" class="link item" href="{% url 'users:feedback' %}">
+        <i class="grey list icon"></i>
+        <span class="v-nav-title">反馈与建议</span>
+    </a>
+</div>

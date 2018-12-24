@@ -1,0 +1,7 @@
+{% if messages %}
+<div class="ui info message">
+    {% for message in messages %}
+    <div class="item">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}

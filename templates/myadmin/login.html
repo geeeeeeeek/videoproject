@@ -1,0 +1,49 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=1">
+    <script src="https://semantic-ui.com/examples/assets/library/jquery.min.js"></script>
+</head>
+<body id="v-account-body">
+<div class="ui middle aligned center aligned grid">
+    <div class="column v-account">
+        <h2 class="ui teal image header">
+            <img src="{% static 'img/logo.png' %}" class="image">
+            <div class="content">
+                后台管理系统
+            </div>
+        </h2>
+        <form class="ui large form" novalidate method="post" action="{% url 'myadmin:login' %}"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        {{form.username}}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        {{form.password}}
+                    </div>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}"/>
+                <button class="ui fluid large teal submit button" type="submit">登录</button>
+            </div>
+
+            {% include "base/form_errors.html" %}
+
+        </form>
+
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'css/Semantic-UI-CSS/semantic.min.js' %}"></script>
+</body>
+</html>

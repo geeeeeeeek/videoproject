@@ -1,0 +1,92 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block content %}
+
+
+<div class="v-settings">
+    <div class="ui two column grid ">
+        <div class="four wide column">
+            {% include "base/left_nav.html" %}
+        </div>
+        <div class="twelve wide column">
+            <div class="v-settings-content">
+
+                <form class="ui form" novalidate method="post" action="{% url 'users:profile' form.instance.pk %}"
+                      enctype="multipart/form-data" role="form">
+                    {% csrf_token %}
+                    <div class="sixteen wide inline field v-form-field">
+                        <label>头像</label>
+                        <div class="v-inline-middle">
+                            <label for="id_avatar">
+                                {% thumbnail user.avatar "200x200" crop="center" as im %}
+                                  <img class="ui mini circular image" src="{{ im.url }}">
+                                {% empty %}
+                                <img class="ui mini circular  image" src="{% static 'img/img_default_avatar.png' %}">
+                                {% endthumbnail %}
+                            </label>
+                            {{form.avatar}}
+                            <span id="file_is_choose" class="n">文件已选择</span>
+
+                        </div>
+                    </div>
+
+                    <div class="sixteen wide inline field v-form-field">
+                        <label>昵称</label>
+                        {{form.nickname}}
+                    </div>
+
+                    <div class="sixteen wide inline field v-form-field">
+                        <label>Email</label>
+                        {{form.email}}
+                    </div>
+
+                    <div class="sixteen wide inline field v-form-field">
+                        <label>手机号</label>
+                        {{form.mobile}}
+                    </div>
+
+                    <div class="sixteen wide inline field v-form-field">
+                        <label>性别</label>
+                        <div class="ui selection  dropdown">
+                            {{form.gender}}
+                            <i class="dropdown icon"></i>
+                            <div class="default text">请选择</div>
+                            <div class="menu">
+                                <div class="item" data-value="M">男</div>
+                                <div class="item" data-value="F">女</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="ui primary button" type="submit">保存</button>
+
+                    {% include "base/form_errors.html" %}
+                    {% include "base/form_messages.html" %}
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+$(function(){
+
+    $('.ui .dropdown').dropdown();
+
+    $("#id_avatar").change(function(){
+        $("#file_is_choose").show()
+    });
+
+});
+
+</script>
+<script src="{% static 'js/left_nav.js' %}"></script>
+{% endblock javascript %}
+

@@ -1,0 +1,25 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h4 class="ui huge header six wide column">总览</h4>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+{% include "myadmin/video_list_modal.html" %}
+{% endblock modal %}
+
+{% block javascript %}
+<script src="{% static 'js/video_list.js' %}"></script>
+{% endblock javascript %}

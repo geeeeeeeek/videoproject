@@ -1,0 +1,28 @@
+{% load video_tag %}
+{% load static %}
+{% load thumbnail %}
+
+{% for item in comments %}
+    <div class="comment">
+        <a class="avatar">
+
+            {% thumbnail item.avatar "200x200" crop="center" as im %}
+            <img class="ui avatar image" src="{{ im.url }}">
+            {% empty %}
+            <img class="ui avatar image" src="{% static 'img/img_default_avatar.png' %}">
+            {% endthumbnail %}
+
+        </a>
+        <div class="content">
+            <a class="author">
+                {% if item.nickname %} {{item.nickname}} {% else %} 匿名 {% endif %}
+            </a>
+            <div class="metadata">
+                <span class="date">{{ item.timestamp|time_since }}</span>
+            </div>
+            <div class="text">
+                {{ item.content }}
+            </div>
+        </div>
+    </div>
+{% endfor %}

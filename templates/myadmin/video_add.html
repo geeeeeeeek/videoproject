@@ -1,0 +1,60 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3>视频添加</h3>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <div class="v-form-wrap">
+            {% csrf_token %}
+            <label id="progress_label" class="ui large blue label" for="chunked_upload">
+                <i class="upload icon"></i> 上传视频
+                <input id="chunked_upload" type="file" name="the_file" hidden>
+            </label>
+            <div id="progress_layout" class="n">
+                <div class="ui progress" data-percent="74" id="upload_progress">
+                    <div class="bar">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="label" id="upload_label">正在上传...</div>
+                </div>
+            </div>
+
+            <div id="next_layout" class="n">
+                <button id="next" class="ui primary right labeled icon button">
+                  <i class="right arrow icon"></i>
+                  下一步
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+{% endblock modal %}
+
+{% block javascript %}
+
+<script>
+var api_chunked_uplad = "{% url 'myadmin:api_chunked_upload' %}";
+var api_chunked_upload_complete = "{% url 'myadmin:api_chunked_upload_complete' %}";
+</script>
+
+<script src="{% static 'js/upload/jquery.js' %}"></script>
+<script src="{% static 'js/upload/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/upload/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/upload/jquery.fileupload.js' %}"></script>
+<script src="{% static 'js/upload/spark-md5.js' %}"></script>
+<script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
+<script src="{% static 'js/myadmin/video_upload.js' %}?v=123"></script>
+
+{% endblock javascript %}
