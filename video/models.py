@@ -1,8 +1,16 @@
 from django.db import models
 from django.conf import settings
 
-# Create your models here.
+class VideoQuerySet(models.query.QuerySet):
 
+    def get_count(self):
+        return self.count()
+
+    def get_published_count(self):
+        return self.filter(status=0).count()
+
+    def get_not_published_count(self):
+        return self.filter(status=1).count()
 
 class Video(models.Model):
     STATUS_CHOICES = (
@@ -21,6 +29,7 @@ class Video(models.Model):
                                    blank=True, related_name="collected_videos")
     create_time = models.DateTimeField(auto_now_add=True, blank=True, max_length=20)
 
+    objects = VideoQuerySet.as_manager()
     class Meta:
         db_table = "v_video"
 

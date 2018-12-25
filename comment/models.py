@@ -1,7 +1,20 @@
-from django.db import models
+import datetime
+
 from django.conf import settings
+from django.db import models
+
 from video.models import Video
+
+
 # Create your models here.
+
+class CommentQuerySet(models.query.QuerySet):
+
+    def get_count(self):
+        return self.count()
+
+    def get_today_count(self):
+        return self.exclude(timestamp__lt=datetime.date.today()).count()
 
 class Comment(models.Model):
     list_display = ("content","timestamp",)
@@ -11,6 +24,7 @@ class Comment(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
+    objects = CommentQuerySet.as_manager()
 
     class Meta:
         db_table = "v_comment"

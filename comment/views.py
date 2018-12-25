@@ -12,6 +12,9 @@ from video.models import Video
 
 @ratelimit(key='ip', rate='2/m')
 def submit_comment(request,pk):
+    """
+    每分钟限制发2条
+    """
     was_limited = getattr(request, 'limited', False)
     if was_limited:
         return JsonResponse({"code": 1, 'msg': '评论太频繁了，请1分钟后再试'})

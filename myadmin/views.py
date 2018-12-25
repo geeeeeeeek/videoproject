@@ -40,16 +40,18 @@ def logout(request):
     return redirect('myadmin:login')
 
 
-# 总览数据
 class IndexView(AdminUserRequiredMixin, generic.View):
+    """
+    总览数据
+    """
     def get(self, request):
-        video_count = Video.objects.count()
-        video_has_published_count = Video.objects.filter(status=0).count()
-        video_not_published_count = Video.objects.filter(status=1).count()
-        user_count = User.objects.count()
-        user_today_count = User.objects.exclude(date_joined__lt=datetime.date.today()).count()
-        comment_count = Comment.objects.count()
-        comment_today_count = Comment.objects.exclude(timestamp__lt=datetime.date.today()).count()
+        video_count = Video.objects.get_count()
+        video_has_published_count = Video.objects.get_published_count()
+        video_not_published_count = Video.objects.get_not_published_count()
+        user_count = User.objects.get_count()
+        user_today_count = User.objects.get_today_user_count()
+        comment_count = Comment.objects.get_count()
+        comment_today_count = Comment.objects.get_today_count()
         data = {"video_count": video_count,
                 "video_has_published_count": video_has_published_count,
                 "video_not_published_count": video_not_published_count,
@@ -231,8 +233,10 @@ def user_delete(request):
     return JsonResponse({"code": 0, "msg": "success"})
 
 
-# 需admin手动添加1条记录
 class SettingView(AdminUserRequiredMixin, generic.UpdateView):
+    """
+    需admin手动添加1条记录
+    """
     model = Setting
     form_class = SettingForm
     template_name = 'myadmin/setting.html'
