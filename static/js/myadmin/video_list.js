@@ -25,8 +25,11 @@ $(".video-list").on("click", ".video-delete", function () {
             success: function (data) {
                 console.log(data);
                  var code = data.code
+                 var msg = data.msg
                  if(code == 0){
                     window.location.reload();
+                 }else{
+                    alert(msg)
                  }
             },
             error: function(data){

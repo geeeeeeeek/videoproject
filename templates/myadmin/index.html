@@ -60,6 +60,21 @@
                 </div>
             </div>
 
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <h4>
+                {% if not user.is_superuser %}
+                {{user}}权限：查看数据、搜索数据。暂无编辑和删除数据权限。
+                <br/>下载代码后，可自行添加超级用户，即可使用全部功能权限。
+                <br/>添加方法：python3 manage.py createsuperuser
+                <br/>如有问题，可咨询开发者（weixin id: java2048）
+                {% endif %}
+            </h4>
+
         </div>
 
     </div>

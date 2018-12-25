@@ -1,18 +1,16 @@
-import os
-
 import datetime
+
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import *
 from django.views import generic
+from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 
 from comment.models import Comment
-from helpers import get_page_data, SuperUserRequiredMixin, ajax_required
+from helpers import get_page_data, AdminUserRequiredMixin, ajax_required, SuperUserRequiredMixin
 from users.models import User
 from video.models import Video
 from .forms import UserLoginForm, VideoPublishForm, VideoEditForm, UserAddForm, UserEditForm, SettingForm
@@ -27,7 +25,7 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
 
-            if user is not None and user.is_superuser:
+            if user is not None :
                 auth_login(request, user)
                 return redirect('myadmin:index')
             else:
@@ -42,7 +40,8 @@ def logout(request):
     return redirect('myadmin:login')
 
 
-class IndexView(SuperUserRequiredMixin, generic.View):
+# 总览数据
+class IndexView(AdminUserRequiredMixin, generic.View):
     def get(self, request):
         video_count = Video.objects.count()
         video_has_published_count = Video.objects.filter(status=0).count()
@@ -51,7 +50,6 @@ class IndexView(SuperUserRequiredMixin, generic.View):
         user_today_count = User.objects.exclude(date_joined__lt=datetime.date.today()).count()
         comment_count = Comment.objects.count()
         comment_today_count = Comment.objects.exclude(timestamp__lt=datetime.date.today()).count()
-        print(user_count, user_today_count)
         data = {"video_count": video_count,
                 "video_has_published_count": video_has_published_count,
                 "video_not_published_count": video_not_published_count,
@@ -75,7 +73,6 @@ class MyChunkedUploadCompleteView(ChunkedUploadCompleteView):
     model = MyChunkedUpload
 
     def on_completion(self, uploaded_file, request):
-        print('uploaded--->', uploaded_file.size)
         print('uploaded--->', uploaded_file.name)
         pass
 
@@ -108,16 +105,17 @@ class VideoEditView(SuperUserRequiredMixin, generic.UpdateView):
 
 
 @ajax_required
+@require_http_methods(["POST"])
 def video_delete(request):
     if not request.user.is_superuser:
-        return JsonResponse({"code": 1, "msg": "请登录管理员账号"})
+        return JsonResponse({"code": 1, "msg": "无删除权限"})
     video_id = request.POST['video_id']
     instance = Video.objects.get(id=video_id)
     instance.delete()
     return JsonResponse({"code": 0, "msg": "success"})
 
 
-class VideoListView(SuperUserRequiredMixin, generic.ListView):
+class VideoListView(AdminUserRequiredMixin, generic.ListView):
     model = Video
     template_name = 'myadmin/video_list.html'
     context_object_name = 'video_list'
@@ -139,7 +137,7 @@ class VideoListView(SuperUserRequiredMixin, generic.ListView):
         return Video.objects.filter(title__contains=self.q).order_by('-create_time')
 
 
-class CommentListView(SuperUserRequiredMixin, generic.ListView):
+class CommentListView(AdminUserRequiredMixin, generic.ListView):
     model = Comment
     template_name = 'myadmin/comment_list.html'
     context_object_name = 'comment_list'
@@ -162,16 +160,17 @@ class CommentListView(SuperUserRequiredMixin, generic.ListView):
 
 
 @ajax_required
+@require_http_methods(["POST"])
 def comment_delete(request):
     if not request.user.is_superuser:
-        return JsonResponse({"code": 1, "msg": "请登录管理员账号"})
+        return JsonResponse({"code": 1, "msg": "无删除权限"})
     comment_id = request.POST['comment_id']
     instance = Comment.objects.get(id=comment_id)
     instance.delete()
     return JsonResponse({"code": 0, "msg": "success"})
 
 
-class UserListView(SuperUserRequiredMixin, generic.ListView):
+class UserListView(AdminUserRequiredMixin, generic.ListView):
     model = User
     template_name = 'myadmin/user_list.html'
     context_object_name = 'user_list'
@@ -220,9 +219,10 @@ class UserEditView(SuperUserRequiredMixin, generic.UpdateView):
 
 
 @ajax_required
+@require_http_methods(["POST"])
 def user_delete(request):
     if not request.user.is_superuser:
-        return JsonResponse({"code": 1, "msg": "请登录管理员账号"})
+        return JsonResponse({"code": 1, "msg": "无删除权限"})
     user_id = request.POST['user_id']
     instance = User.objects.get(id=user_id)
     if instance.is_superuser:
@@ -232,7 +232,7 @@ def user_delete(request):
 
 
 # 需admin手动添加1条记录
-class SettingView(SuperUserRequiredMixin, generic.UpdateView):
+class SettingView(AdminUserRequiredMixin, generic.UpdateView):
     model = Setting
     form_class = SettingForm
     template_name = 'myadmin/setting.html'

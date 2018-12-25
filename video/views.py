@@ -1,29 +1,10 @@
-from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import *
 from django.views import generic
 from django.views.decorators.http import require_http_methods
-from django.core.mail import send_mass_mail
-import smtplib
+
 from helpers import get_page_data, ajax_required
 from .forms import CommentForm
 from .models import Video
-
-
-# todo write for future
-def send_email(request):
-    try:
-        to_list = ['net19880504@126.com','net936@163.com','912750350@qq.com']
-        message = ('测试主题', '你好hello', 'net936@163.com', to_list)
-        # do not forget set password
-        send_mass_mail((message,))
-    except smtplib.SMTPException :
-        print("--> send fail")
-        return HttpResponse("fail")
-    else:
-        print("--> send success")
-        return HttpResponse("success")
 
 
 class IndexView(generic.ListView):

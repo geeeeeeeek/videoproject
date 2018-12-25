@@ -10,13 +10,13 @@
 </head>
 <body>
 <div class="ui inverted huge borderless fixed fluid menu">
-    <a class="header item">
+    <a class="header item" href="{% url 'myadmin:index' %}">
         <img src="{% static 'img/logo.png' %}" id="logo">后台管理
     </a>
     <div class="right menu">
-        <a class="item" href="/" target="_blank">前台首页</a>
-        <a class="item">后台首页</a>
-        <a class="item">帮助</a>
+        <a class="item" href="{% url 'home' %}" target="_blank">前台首页</a>
+        <a class="item" href="{% url 'myadmin:index' %}">后台首页</a>
+        <a class="item">{{ user }}</a>
         <a class="item" href="{% url 'myadmin:logout' %}">退出</a>
     </div>
 </div>
@@ -32,7 +32,7 @@
                 <a class="item" href="{% url 'myadmin:user_list' %}" id="user_list">用户列表</a>
                 <a class="item" href="{% url 'myadmin:user_add' %}" id="user_add">添加用户</a>
                 <div class="ui divider"></div>
-                <a class="item" href="{% url 'myadmin:comment_list' %}" id="comment_list">评论管理</a>
+                <a class="item" href="{% url 'myadmin:comment_list' %}" id="comment_list">评论列表</a>
                 <div class="ui divider"></div>
                 <a class="item" href="{% url 'myadmin:setting' 1 %}" id="setting">设置</a>
             </div>
