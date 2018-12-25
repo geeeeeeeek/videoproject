@@ -5,21 +5,65 @@
 
 <div class="ui grid">
     <div class="row">
-        <h4 class="ui huge header six wide column">总览</h4>
+        <h3>总览</h3>
     </div>
     <div class="ui divider"></div>
     <div class="row">
 
+        <div>
+
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+
+            <div class="ui tiny statistics">
+                <div class="statistic">
+                    <div class="value">{{ video_count }}</div>
+                    <div class="label">视频数</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">{{ video_has_published_count }}</div>
+                    <div class="label">发布中</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">{{ video_not_published_count }}</div>
+                    <div class="label">未发布</div>
+                </div>
+            </div>
+
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+
+            <div class="ui tiny statistics">
+                <div class="statistic">
+                    <div class="value">{{ user_count }}</div>
+                    <div class="label"> 用户数</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">{{ user_today_count }}</div>
+                    <div class="label">今日新增</div>
+                </div>
+            </div>
+
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+
+            <div class="ui tiny statistics">
+                <div class="statistic">
+                    <div class="value">{{ comment_count }}</div>
+                    <div class="label">评论数</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">{{ comment_today_count }}</div>
+                    <div class="label">今日新增</div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>
 
-
 {% endblock content %}
 
-{% block modal %}
-{% include "myadmin/video_list_modal.html" %}
-{% endblock modal %}
-
-{% block javascript %}
-<script src="{% static 'js/video_list.js' %}"></script>
-{% endblock javascript %}

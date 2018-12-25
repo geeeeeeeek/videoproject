@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8"/>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}?v=1"/>
+    <title>后台管理</title>
 </head>
 <body>
 <div class="ui inverted huge borderless fixed fluid menu">
@@ -22,20 +24,17 @@
     <div class="row">
         <div class="column" id="sidebar">
             <div class="ui secondary vertical fluid menu">
-                <a class="item">总览</a>
+                <a class="item" href="{% url 'myadmin:index' %}" id="index">总览</a>
                 <div class="ui divider"></div>
-                <a class="item" href="{% url 'myadmin:video_list' %}">视频列表</a>
-                <a class="item" href="{% url 'myadmin:video_add' %}">添加视频</a>
+                <a class="item" href="{% url 'myadmin:video_list' %}" id="video_list">视频列表</a>
+                <a class="item" href="{% url 'myadmin:video_add' %}" id="video_add">添加视频</a>
                 <div class="ui divider"></div>
-                <a class="item">用户列表</a>
-                <a class="item">添加用户</a>
+                <a class="item" href="{% url 'myadmin:user_list' %}" id="user_list">用户列表</a>
+                <a class="item" href="{% url 'myadmin:user_add' %}" id="user_add">添加用户</a>
                 <div class="ui divider"></div>
-                <a class="item" href="{% url 'myadmin:comment_list' %}">评论管理</a>
+                <a class="item" href="{% url 'myadmin:comment_list' %}" id="comment_list">评论管理</a>
                 <div class="ui divider"></div>
-                <a class="item">数据分析</a>
-                <a class="item">广告管理</a>
-                <div class="ui divider"></div>
-                <a class="item">设置</a>
+                <a class="item" href="{% url 'myadmin:setting' 1 %}" id="setting">设置</a>
             </div>
         </div>
     </div>
@@ -51,6 +50,7 @@
 
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 <script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
+<script src="{% static 'js/myadmin/admin_nav.js' %}"></script>
 {% block javascript %}
 {% endblock javascript %}
 

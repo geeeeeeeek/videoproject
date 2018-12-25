@@ -11,11 +11,6 @@ from .forms import CommentForm
 from .models import Video
 
 
-@login_required(login_url='/users/login')
-def add_video(request):
-    Video.objects.create(title='java', desc='我是java哈哈哈')
-    return HttpResponse("success")
-
 # todo write for future
 def send_email(request):
     try:
@@ -46,6 +41,9 @@ class IndexView(generic.ListView):
         context.update(page_data)
         return context
 
+    def get_queryset(self):
+        return Video.objects.filter(status=0).order_by('-create_time')
+
 
 class SearchListView(generic.ListView):
     model = Video
@@ -56,7 +54,7 @@ class SearchListView(generic.ListView):
 
     def get_queryset(self):
         self.q = self.request.GET.get("q","")
-        return Video.objects.filter(Q(title__contains=self.q))
+        return Video.objects.filter(title__contains=self.q).filter(status=0)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SearchListView, self).get_context_data(**kwargs)

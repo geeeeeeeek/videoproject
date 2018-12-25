@@ -1,0 +1,39 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3>网站设置</h3>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <div class="v-form-wrap">
+
+            <form class="ui form" novalidate method="post" action="{% url 'myadmin:setting' 1 %}"
+                  enctype="multipart/form-data" role="form">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="ui checkbox">
+                      {{form.switch_mail}}
+                      <label>开启邮件服务</label>
+                    </div>
+                </div>
+
+                <button class="ui primary button" type="submit">保存</button>
+
+                {% include "base/form_errors.html" %}
+                {% include "base/form_messages.html" %}
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+

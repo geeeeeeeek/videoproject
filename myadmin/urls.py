@@ -6,7 +6,11 @@ app_name = 'myadmin'
 urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
-    path('index/', views.IndexView.as_view(), name='index'),
+
+    #----------------------总览---------------------------
+    path('', views.IndexView.as_view(), name='index'),
+
+    #----------------------视频管理------------------------
     path('video_list/', views.VideoListView.as_view(), name='video_list'),
     path('video_add/', views.AddVideoView.as_view(), name='video_add'),
 
@@ -18,7 +22,16 @@ urlpatterns = [
     path('video_edit/<int:pk>/', views.VideoEditView.as_view(), name='video_edit'),
     path('video_delete/', views.video_delete, name='video_delete'),
 
-    #----------------------评论url-------------------------
+    #----------------------评论管理----------------------------
     path('comment_list/', views.CommentListView.as_view(), name='comment_list'),
-    path('commend_delete', views.comment_delete, name='comment_delete'),
+    path('comment_delete/', views.comment_delete, name='comment_delete'),
+
+    #----------------------用户管理-------------------------
+    path('user_list/', views.UserListView.as_view(), name='user_list'),
+    path('user_add/', views.UserAddView.as_view(), name='user_add'),
+    path('user_edit/<int:pk>',views.UserEditView.as_view(), name='user_edit'),
+    path('user_delete/', views.user_delete, name='user_delete'),
+
+    #-----------------------设置----------------------------
+    path('setting/<int:pk>/', views.SettingView.as_view(), name='setting'),
 ]

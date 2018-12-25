@@ -1,0 +1,47 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3>用户添加</h3>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <div class="v-form-wrap">
+
+            <form class="ui form" novalidate method="post" action="{% url 'myadmin:user_add' %}"
+                  enctype="multipart/form-data" role="form">
+                {% csrf_token %}
+                <div class="field">
+                    <label>用户名</label>
+                    {{ form.username }}
+                </div>
+                <div class="field">
+                    <label>密码</label>
+                    {{ form.password }}
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                      {{form.is_staff}}
+                      <label>管理员账号</label>
+                    </div>
+                </div>
+
+                <button class="ui primary button" type="submit">添加</button>
+
+                {% include "base/form_errors.html" %}
+                {% include "base/form_messages.html" %}
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+

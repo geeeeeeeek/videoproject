@@ -40,7 +40,7 @@
 
                 <div class="field">
                     <label>视频封面</label>
-                    {% thumbnail video.cover "200x200" crop="center" as im %}
+                    {% thumbnail video.cover "300x200" crop="center" as im %}
                       <img class="ui small image" src="{{ im.url }}">
                     {% empty %}
                     {% endthumbnail %}
