@@ -34,4 +34,7 @@ urlpatterns = [
 
     #-----------------------设置----------------------------
     path('setting/<int:pk>/', views.SettingView.as_view(), name='setting'),
+
+    #-----------------------订阅通知-------------------------
+    path('subscribe/', views.SubscribeView.as_view(), name='subscribe'),
 ]

@@ -22,4 +22,7 @@ $(function(){
     if(pathname.indexOf("myadmin/setting/") >= 0) {
         $("#setting").addClass("active");
     }
+    if(pathname.indexOf("myadmin/subscribe/") >= 0){
+        $("#subscribe").addClass("active");
+    }
 });

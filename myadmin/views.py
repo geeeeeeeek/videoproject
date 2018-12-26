@@ -1,21 +1,25 @@
-import datetime
+import logging
+import smtplib
 
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import *
+from django.template.loader import render_to_string
 from django.views import generic
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 
 from comment.models import Comment
-from helpers import get_page_data, AdminUserRequiredMixin, ajax_required, SuperUserRequiredMixin
+from helpers import get_page_data, AdminUserRequiredMixin, ajax_required, SuperUserRequiredMixin, send_html_email
 from users.models import User
 from video.models import Video
 from .forms import UserLoginForm, VideoPublishForm, VideoEditForm, UserAddForm, UserEditForm, SettingForm
 from .models import MyChunkedUpload, Setting
 
+logger = logging.getLogger('my_logger')
 
 def login(request):
     if request.method == 'POST':
@@ -25,7 +29,7 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
 
-            if user is not None :
+            if user is not None:
                 auth_login(request, user)
                 return redirect('myadmin:index')
             else:
@@ -44,6 +48,7 @@ class IndexView(AdminUserRequiredMixin, generic.View):
     """
     总览数据
     """
+
     def get(self, request):
         video_count = Video.objects.get_count()
         video_has_published_count = Video.objects.get_published_count()
@@ -231,6 +236,32 @@ def user_delete(request):
         return JsonResponse({"code": 1, "msg": "不能删除管理员"})
     instance.delete()
     return JsonResponse({"code": 0, "msg": "success"})
+
+
+class SubscribeView(SuperUserRequiredMixin, generic.View):
+
+    def get(self, request):
+        return render(request, "myadmin/subscribe.html")
+
+    def post(self, request):
+        if not request.user.is_superuser:
+            return JsonResponse({"code": 1, "msg": "无权限"})
+        video_id = request.POST['video_id']
+        video = Video.objects.get(id=video_id)
+        subject = video.title
+        context = {'video': video,'site_url':settings.SITE_URL}
+        html_message = render_to_string('myadmin/mail_template.html', context)
+        email_list = User.objects.get_subscribe_email_list()
+        # 分组
+        email_list = [email_list[i:i + 2] for i in range(0, len(email_list), 2)]
+
+        for to_list in email_list:
+            try:
+                send_html_email(subject, html_message, to_list)
+            except smtplib.SMTPException as e:
+                logger.error(e)
+                return JsonResponse({"code": 1, "msg": "发送失败"})
+        return JsonResponse({"code": 0, "msg": "success"})
 
 
 class SettingView(AdminUserRequiredMixin, generic.UpdateView):

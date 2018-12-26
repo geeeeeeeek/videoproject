@@ -1,0 +1,23 @@
+{% load static %}
+{% load thumbnail %}
+{% load video_tag %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css">
+</head>
+<body>
+<h3>{{ video.title }}</h3>
+<p>
+    <a class="image" href="{{site_url}}{% url 'video:detail' video.id %}">
+        <img class="ui image"
+             style="object-fit: cover; object-position: center;height: 200px;width: 300px;"
+             src="{{site_url}}{{video.cover}}">
+    </a>
+</p>
+<p>{{video.desc}}</p>
+
+<a class="ui button" href="{{site_url}}{% url 'video:detail' video.id %}">点击进入</a>
+
+</body>
+</html>

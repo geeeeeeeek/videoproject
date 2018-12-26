@@ -1,7 +1,8 @@
 import datetime
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.conf import settings
-from django.contrib.auth.models import User, AbstractUser
+
 
 class UserQuerySet(models.query.QuerySet):
 
@@ -10,6 +11,12 @@ class UserQuerySet(models.query.QuerySet):
 
     def get_today_user_count(self):
         return self.exclude(date_joined__lt=datetime.date.today()).count()
+
+    def get_subscribe_users(self):
+        return self.filter(subscribe=True)
+
+    def get_subscribe_email_list(self):
+        return self.filter(subscribe=True).values_list('email',flat=True)
 
 
 class User(AbstractUser):

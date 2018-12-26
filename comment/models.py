@@ -6,7 +6,6 @@ from django.db import models
 from video.models import Video
 
 
-# Create your models here.
 
 class CommentQuerySet(models.query.QuerySet):
 

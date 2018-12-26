@@ -55,6 +55,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SITE_URL = 'http://127.0.0.1:8000'
+
 ROOT_URLCONF = 'videoproject.urls'
 
 AUTH_USER_MODEL = 'users.User'
@@ -68,7 +70,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\','/')
 MEDIA_URL = '/upload/'
 
 # 上传视频最大尺寸
-CHUNKED_UPLOAD_MAX_BYTES = 400000000
+CHUNKED_UPLOAD_MAX_BYTES = 100000000
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
@@ -154,3 +156,30 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+
+# 日志配置
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/xiaoqingsong/log/django/debug.log', # your log file
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'my_logger': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
