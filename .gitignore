@@ -1,8 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-/upload/
-/__pycache__/
-*/__pycache__/
-/.idea/
-.DS_Store
-.gitignore
-*/migrations/
