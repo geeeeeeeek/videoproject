@@ -35,7 +35,7 @@
                 <a class="item" href="{% url 'myadmin:comment_list' %}" id="comment_list">评论列表</a>
                 <div class="ui divider"></div>
                 <a class="item" href="{% url 'myadmin:subscribe'  %}" id="subscribe">订阅通知</a>
-                <a class="item" href="{% url 'myadmin:setting' 1 %}" id="setting">设置</a>
+                <a class="item" href="{% url 'myadmin:feedback_list'  %}" id="feedback_list">用户反馈</a>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
 
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 <script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
-<script src="{% static 'js/myadmin/admin_nav.js' %}"></script>
+<script src="{% static 'js/myadmin/admin_nav.js' %}?v=12"></script>
 {% block javascript %}
 {% endblock javascript %}
 

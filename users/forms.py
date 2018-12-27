@@ -110,7 +110,7 @@ class SubscribeForm(forms.ModelForm):
         fields = ['subscribe']
 
 class FeedbackForm(forms.ModelForm):
-    content = forms.CharField(min_length=4,max_length=200,required=True,
+    content = forms.CharField(min_length=4,max_length=200,
                                error_messages={
                                    'min_length': '至少4个字符',
                                    'max_length': '不能多于200个字符',

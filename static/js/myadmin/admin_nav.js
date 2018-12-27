@@ -7,10 +7,16 @@ $(function(){
     if(pathname.endsWith("myadmin/video_list/")) {
         $("#video_list").addClass("active");
     }
+    if(pathname.indexOf("myadmin/video_edit/") >= 0){
+        $("#video_list").addClass("active");
+    }
     if(pathname.endsWith("myadmin/video_add/")) {
         $("#video_add").addClass("active");
     }
     if(pathname.endsWith("myadmin/user_list/")) {
+        $("#user_list").addClass("active");
+    }
+    if(pathname.indexOf("myadmin/user_edit/") >= 0){
         $("#user_list").addClass("active");
     }
     if(pathname.endsWith("myadmin/user_add/")) {
@@ -24,5 +30,8 @@ $(function(){
     }
     if(pathname.indexOf("myadmin/subscribe/") >= 0){
         $("#subscribe").addClass("active");
+    }
+    if(pathname.indexOf("myadmin/feedback_list/") >= 0){
+        $("#feedback_list").addClass("active");
     }
 });

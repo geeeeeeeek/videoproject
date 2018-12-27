@@ -32,9 +32,10 @@ urlpatterns = [
     path('user_edit/<int:pk>',views.UserEditView.as_view(), name='user_edit'),
     path('user_delete/', views.user_delete, name='user_delete'),
 
-    #-----------------------设置----------------------------
-    path('setting/<int:pk>/', views.SettingView.as_view(), name='setting'),
-
     #-----------------------订阅通知-------------------------
     path('subscribe/', views.SubscribeView.as_view(), name='subscribe'),
+
+    # -----------------------用户反馈-------------------------
+    path('feedback_list/', views.FeedbackListView.as_view(), name='feedback_list'),
+    path('feedback_delete/', views.feedback_delete, name='feedback_delete'),
 ]

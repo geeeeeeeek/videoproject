@@ -60,10 +60,15 @@ def change_password(request):
     if request.method == 'POST':
         form = ChangePwdForm(request.user, request.POST)
         if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # 更新session 非常重要！
-            messages.success(request, '修改成功')
-            return redirect('users:change_password')
+            user = form.save(commit=False)
+            if not user.is_staff and not user.is_superuser:
+                user.save()
+                update_session_auth_hash(request, user)  # 更新session 非常重要！
+                messages.success(request, '修改成功')
+                return redirect('users:change_password')
+            else:
+                messages.warning(request, '无权修改管理员密码')
+                return redirect('users:change_password')
         else:
             print(form.errors)
     else:

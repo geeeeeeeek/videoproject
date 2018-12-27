@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
-from myadmin.models import Setting
 from users.models import User
 from video.models import Video
 
@@ -126,10 +125,3 @@ class UserEditForm(forms.ModelForm):
         model = User
         fields = ['username','is_staff']
 
-
-
-class SettingForm(forms.ModelForm):
-
-    class Meta:
-        model = Setting
-        fields = ['switch_mail']

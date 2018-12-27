@@ -10,7 +10,6 @@
             <img class="ui image" src="{{ im.url }}">
             {% empty %}
             {% endthumbnail %}
-            <span class="video-duration">10:20</span>
         </div>
         <div class="middle aligned content">
             <a class=" header-title" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>

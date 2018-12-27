@@ -1,10 +1,12 @@
 import logging
 import smtplib
+import subprocess
 
+import datetime
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import *
 from django.template.loader import render_to_string
@@ -14,10 +16,10 @@ from django.views.generic import TemplateView
 
 from comment.models import Comment
 from helpers import get_page_data, AdminUserRequiredMixin, ajax_required, SuperUserRequiredMixin, send_html_email
-from users.models import User
+from users.models import User, Feedback
 from video.models import Video
-from .forms import UserLoginForm, VideoPublishForm, VideoEditForm, UserAddForm, UserEditForm, SettingForm
-from .models import MyChunkedUpload, Setting
+from .forms import UserLoginForm, VideoPublishForm, VideoEditForm, UserAddForm, UserEditForm
+from .models import MyChunkedUpload
 
 logger = logging.getLogger('my_logger')
 
@@ -29,7 +31,7 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
 
-            if user is not None:
+            if user is not None and user.is_staff:
                 auth_login(request, user)
                 return redirect('myadmin:index')
             else:
@@ -53,8 +55,8 @@ class IndexView(AdminUserRequiredMixin, generic.View):
         video_count = Video.objects.get_count()
         video_has_published_count = Video.objects.get_published_count()
         video_not_published_count = Video.objects.get_not_published_count()
-        user_count = User.objects.get_count()
-        user_today_count = User.objects.get_today_user_count()
+        user_count = User.objects.count()
+        user_today_count = User.objects.exclude(date_joined__lt=datetime.date.today()).count()
         comment_count = Comment.objects.get_count()
         comment_today_count = Comment.objects.get_today_count()
         data = {"video_count": video_count,
@@ -86,6 +88,18 @@ class MyChunkedUploadCompleteView(ChunkedUploadCompleteView):
     def get_response_data(self, chunked_upload, request):
         video = Video.objects.create(file=chunked_upload.file)
         return {'code': 0, 'video_id': video.id, 'msg': 'success'}
+
+def get_duration(file):
+    """Get the duration of a video using ffprobe."""
+    cmd = 'ffprobe -i {} -show_entries format=duration -v quiet -of csv="p=0"'.format(file)
+    output = subprocess.check_output(
+        cmd,
+        shell=True, # Let this run in the shell
+        stderr=subprocess.STDOUT
+    )
+    print(output)
+    # return round(float(output))  # ugly, but rounds your seconds up or down
+    return float(output)
 
 
 class VideoPublishView(SuperUserRequiredMixin, generic.UpdateView):
@@ -251,7 +265,7 @@ class SubscribeView(SuperUserRequiredMixin, generic.View):
         subject = video.title
         context = {'video': video,'site_url':settings.SITE_URL}
         html_message = render_to_string('myadmin/mail_template.html', context)
-        email_list = User.objects.get_subscribe_email_list()
+        email_list = User.objects.filter(subscribe=True).values_list('email',flat=True)
         # 分组
         email_list = [email_list[i:i + 2] for i in range(0, len(email_list), 2)]
 
@@ -264,14 +278,35 @@ class SubscribeView(SuperUserRequiredMixin, generic.View):
         return JsonResponse({"code": 0, "msg": "success"})
 
 
-class SettingView(AdminUserRequiredMixin, generic.UpdateView):
-    """
-    需admin手动添加1条记录
-    """
-    model = Setting
-    form_class = SettingForm
-    template_name = 'myadmin/setting.html'
+class FeedbackListView(AdminUserRequiredMixin, generic.ListView):
+    model = Feedback
+    template_name = 'myadmin/feedback_list.html'
+    context_object_name = 'feedback_list'
+    paginate_by = 10
+    q = ''
 
-    def get_success_url(self):
-        messages.success(self.request, "保存成功")
-        return reverse('myadmin:setting', kwargs={'pk': self.kwargs['pk']})
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(FeedbackListView, self).get_context_data(**kwargs)
+        paginator = context.get('paginator')
+        page = context.get('page_obj')
+        page_data = get_page_data(paginator, page)
+        q_data = {'q': self.q}
+        context.update(page_data)
+        context.update(q_data)
+        return context
+
+    def get_queryset(self):
+        self.q = self.request.GET.get("q", "")
+        return Feedback.objects.filter(content__contains=self.q).order_by('-timestamp')
+
+
+@ajax_required
+@require_http_methods(["POST"])
+def feedback_delete(request):
+    if not request.user.is_superuser:
+        return JsonResponse({"code": 1, "msg": "无删除权限"})
+    feedback_id = request.POST['feedback_id']
+    instance = Feedback.objects.get(id=feedback_id)
+    instance.delete()
+    return JsonResponse({"code": 0, "msg": "success"})
+
