@@ -1,0 +1,20 @@
+{% if is_paginated %}
+<div class="video-page">
+    <div class="ui borderless pagination menu">
+        {% if page_obj.has_previous %}
+        <a class="item" href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{q}}{% endif %}"><i
+                class="left arrow icon"></i></a></a>
+        {% endif %}
+        {% for i in page_list %}
+        {% if page_obj.number == i %}
+        <a class="active item">{{ i }}</a>
+        {% else %}
+        <a class="item" href="?page={{ i }}{% if q %}&q={{q}}{% endif %}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <a class="item" href="?page={{ page_obj.next_page_number }}{% if q %}&q={{q}}{% endif %}"><i class="icon right arrow"></i></a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

@@ -5,7 +5,7 @@
 
 <div class="ui grid">
     <div class="row">
-        <h3 class="ui header six wide column">视频列表</h3>
+        <h3 class="ui header six wide column">分类列表</h3>
         <div class="v-title-extra ten wide column">
             <div class="ui action input v-admin-search">
                 <input type="text" placeholder="Search..."  value="{{q}}" id="v-search">
@@ -17,27 +17,23 @@
     <div class="row">
         <table class="ui unstackable single line striped selectable table">
             <thead>
-            <tr><th>#id</th><th>标题</th><th>分类</th><th>状态</th><th>访问次数</th><th>创建时间</th><th>操作</th></tr>
+            <tr><th>#id</th><th>名称</th></th><th>状态</th><th>操作</th></tr>
             </thead>
             <tbody class="video-list">
 
-            {% for item in video_list %}
-            <tr video-id="{{item.id}}">
+            {% for item in classification_list %}
+            <tr classification-id="{{item.id}}">
                 <td> {{item.id}}</td>
-                <td> {{item.title|default:""}}</td>
-                <td> {{item.classification|default:""}}</td>
-                <td> {{item.get_status_display}}</td>
-                <td> {{item.view_count}}</td>
-                <td> {{item.create_time|date:'Y-m-d H:i'}}</td>
+                <td> {{item.title}}</td>
+                <td> {% if item.status %}启用{% else %}未启用{% endif %}</td>
                 <td>
-                    <a class="ui primary button video-edit" href="{% url 'myadmin:video_edit' item.id %}">编辑</a>
-                    <a class="ui button video-delete">删除</a>
+                    <a class="ui primary button classification-edit" href="{% url 'myadmin:classification_edit' item.id %}">编辑</a>
+                    <a class="ui button classification-delete">删除</a>
                 </td>
             </tr>
             {% empty %}
             <h3>暂无数据</h3>
             {% endfor %}
-
 
             </tbody>
             <tfoot>
@@ -55,14 +51,13 @@
 {% endblock content %}
 
 {% block modal %}
-{% include "myadmin/video_list_modal.html" %}
+{% include "myadmin/classification_list_modal.html" %}
 {% endblock modal %}
 
 {% block javascript %}
 <script>
-   var api_video_delete = "{% url 'myadmin:video_delete' %}";
-   var search_url = "{% url 'myadmin:video_list' %}"
-
+    var search_url = "{% url 'myadmin:classification_list' %}"
+    var api_classification_delete = "{% url 'myadmin:classification_delete' %}"
 </script>
-<script src="{% static 'js/myadmin/video_list.js' %}?v=2"></script>
+<script src="{% static 'js/myadmin/classification_list.js' %}?v=2"></script>
 {% endblock javascript %}

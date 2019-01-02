@@ -1,15 +1,15 @@
 import smtplib
 
-from django.core.mail import send_mass_mail, send_mail
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mass_mail, send_mail
+from django.http import HttpResponseBadRequest, HttpResponse
+from django.shortcuts import *
 from django.utils.html import strip_tags
 from django.views.generic import View
-from django.shortcuts import *
-from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseBadRequest,HttpResponse
 
 
-def get_page_data(paginator, page):
+def get_page_list(paginator, page):
 
     """
     分页逻辑
@@ -35,8 +35,8 @@ def get_page_data(paginator, page):
         for i in range(1, paginator.num_pages + 1):
             page_list.append(i)
 
-    page_data = {'page_list': page_list}
-    return page_data
+    # page_data = {'page_list': page_list}
+    return page_list
 
 def ajax_required(f):
     """Not a mixin, but a nice decorator to validate than a request is AJAX"""

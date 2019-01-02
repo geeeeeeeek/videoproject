@@ -1,0 +1,19 @@
+{% if is_paginated %}
+<div class="video-page">
+    <div class="ui circular labels">
+        {% if page_obj.has_previous %}
+        <a class="ui circular label" href="?page={{ page_obj.previous_page_number }}{% if c %}&c={{c}}{% endif %}{% if q %}&q={{q}}{% endif %}">&lt;</a>
+        {% endif %}
+        {% for i in page_list %}
+        {% if page_obj.number == i %}
+        <a class="ui red circular label">{{ i }}</a>
+        {% else %}
+        <a class="ui circular label" href="?page={{ i }}{% if c %}&c={{c}}{% endif %}{% if q %}&q={{q}}{% endif %}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <a class="ui circular label" href="?page={{ page_obj.next_page_number }}{% if c %}&c={{c}}{% endif %}{% if q %}&q={{q}}{% endif %}">&gt;</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

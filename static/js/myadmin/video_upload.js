@@ -39,8 +39,20 @@ $("#chunked_upload").fileupload({
   maxChunkSize: 100000, // Chunks of 100 kB
   formData: form_data,
   add: function(e, data) { // Called before starting upload
-    var filesize = data.originalFiles[0]['size'];
-    console.log(filesize);
+    var fileSize = data.originalFiles[0]['size'];
+    var type = data.originalFiles[0]['type'];
+    console.log('file size --> ' + fileSize);
+    console.log('type --> ' + type);
+
+    if(fileSize > 100000000){
+        alert('文件太大了，请上传100M以内的文件');
+        return;
+    }
+
+    if(!type.startsWith("video/")){
+        alert('视频格式不正确');
+        return;
+    }
 
     // If this is the second file you're uploading we need to remove the
     // old upload_id and just keep the csrftoken (which is always first).

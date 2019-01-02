@@ -5,19 +5,23 @@
 
 {% block content %}
 
-<h3 class="ui header">视频</h3>
-<div class="ui grid">
+<div class="classification">
+    <a class="ui {% if c %}{% else %}red{% endif %} label" href="{% url 'home' %}">全部</a>
+    {% for item in classification_list %}
+    <a class="ui {% if c == item.id|stringformat:'s' %}red{% endif %} label" href="?c={{ item.id }}">{{ item.title }}</a>
+    {% endfor %}
+</div>
 
+<div class="ui hidden divider"></div>
+<div class="ui grid">
     {% for item in video_list %}
     <div class="four wide column">
         <div class="ui card">
             <a class="image" href="{% url 'video:detail' item.pk %}">
-
                 {% thumbnail item.cover "300x200" crop="center" as im %}
                 <img class="ui image" src="{{ im.url }}">
                 {% empty %}
                 {% endthumbnail %}
-
                 <i class="large play icon v-play-icon"></i>
             </a>
             <div class="content">
@@ -36,24 +40,6 @@
     {% endfor %}
 </div>
 
-{% if is_paginated %}
-<div class="video-page">
-    <div class="ui borderless pagination menu">
-        {% if page_obj.has_previous %}
-        <a class="item" href="?page={{ page_obj.previous_page_number }}"><i class="left arrow icon"></i></a></a>
-        {% endif %}
-        {% for i in page_list %}
-        {% if page_obj.number == i %}
-        <a class="active item">{{ i }}</a>
-        {% else %}
-        <a class="item" href="?page={{ i }}">{{ i }}</a>
-        {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-        <a class="item" href="?page={{ page_obj.next_page_number }}"><i class="icon right arrow"></i></a>
-        {% endif %}
-    </div>
-</div>
-{% endif %}
+{% include "base/page_nav.html" %}
 
 {% endblock content %}

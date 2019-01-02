@@ -29,6 +29,9 @@
                 <a class="item" href="{% url 'myadmin:video_list' %}" id="video_list">视频列表</a>
                 <a class="item" href="{% url 'myadmin:video_add' %}" id="video_add">添加视频</a>
                 <div class="ui divider"></div>
+                <a class="item" href="{% url 'myadmin:classification_list' %}" id="classification_list">分类列表</a>
+                <a class="item" href="{% url 'myadmin:classification_add' %}" id="classification_add">添加分类</a>
+                <div class="ui divider"></div>
                 <a class="item" href="{% url 'myadmin:user_list' %}" id="user_list">用户列表</a>
                 <a class="item" href="{% url 'myadmin:user_add' %}" id="user_add">添加用户</a>
                 <div class="ui divider"></div>
@@ -51,7 +54,7 @@
 
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 <script src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
-<script src="{% static 'js/myadmin/admin_nav.js' %}?v=12"></script>
+<script src="{% static 'js/myadmin/admin_nav.js' %}?v=1"></script>
 {% block javascript %}
 {% endblock javascript %}
 

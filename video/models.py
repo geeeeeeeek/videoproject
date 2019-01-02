@@ -1,5 +1,9 @@
-from django.db import models
+import os
+
 from django.conf import settings
+from django.db import models
+from django.dispatch import receiver
+
 
 class VideoQuerySet(models.query.QuerySet):
 
@@ -12,6 +16,27 @@ class VideoQuerySet(models.query.QuerySet):
     def get_not_published_count(self):
         return self.filter(status=1).count()
 
+    def get_search_list(self, q):
+        if q:
+            return self.filter(title__contains=q).order_by('-create_time')
+        else:
+            return self.order_by('-create_time')
+
+    def get_recommend_list(self):
+        return self.filter(status=0).order_by('-view_count')[:4]
+
+
+class Classification(models.Model):
+    list_display = ("title",)
+    title = models.CharField(max_length=100,blank=True, null=True)
+    status = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = "v_classification"
+
 class Video(models.Model):
     STATUS_CHOICES = (
         ('0', '发布中'),
@@ -19,6 +44,7 @@ class Video(models.Model):
     )
     title = models.CharField(max_length=100,blank=True, null=True)
     desc = models.CharField(max_length=255,blank=True, null=True)
+    classification = models.ForeignKey(Classification, on_delete=models.CASCADE, null=True)
     file = models.FileField(max_length=255)
     cover = models.FileField(upload_to='cover/',blank=True, null=True)
     status = models.CharField(max_length=1 ,choices=STATUS_CHOICES, blank=True, null=True)
@@ -32,6 +58,10 @@ class Video(models.Model):
     objects = VideoQuerySet.as_manager()
     class Meta:
         db_table = "v_video"
+
+    def increase_view_count(self):
+        self.view_count += 1
+        self.save(update_fields=['view_count'])
 
     def switch_like(self, user):
         if user in self.liked.all():
@@ -64,3 +94,15 @@ class Video(models.Model):
             return 0
         else:
             return 1
+
+
+@receiver(models.signals.post_delete, sender=Video)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    删除FileField文件
+    """
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
+
+

@@ -22,6 +22,12 @@ urlpatterns = [
     path('video_edit/<int:pk>/', views.VideoEditView.as_view(), name='video_edit'),
     path('video_delete/', views.video_delete, name='video_delete'),
 
+    #----------------------分类管理----------------------------
+    path('classification_list/', views.ClassificationListView.as_view(), name='classification_list'),
+    path('classification_add/', views.ClassificationAddView.as_view(), name='classification_add'),
+    path('classification_edit/<int:pk>/', views.ClassificationEditView.as_view(), name='classification_edit'),
+    path('classification_delete/', views.classification_delete, name='classification_delete'),
+
     #----------------------评论管理----------------------------
     path('comment_list/', views.CommentListView.as_view(), name='comment_list'),
     path('comment_delete/', views.comment_delete, name='comment_delete'),

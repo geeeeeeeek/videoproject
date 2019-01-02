@@ -65,6 +65,8 @@ LOGIN_URL = '/users/login'
 
 LOGIN_REDIRECT_URL = '/video/index'
 
+THUMBNAIL_DEBUG = True
+
 # 文件上传路径
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\','/')
 MEDIA_URL = '/upload/'
@@ -159,27 +161,27 @@ STATICFILES_DIRS = (
 
 
 # 日志配置
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': '/Users/xiaoqingsong/log/django/debug.log', # your log file
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'my_logger': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename': '/Users/xiaoqingsong/log/django/debug.log', # your log file
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#         'my_logger': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#     },
+# }
 

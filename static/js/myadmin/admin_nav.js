@@ -13,6 +13,15 @@ $(function(){
     if(pathname.endsWith("myadmin/video_add/")) {
         $("#video_add").addClass("active");
     }
+    if(pathname.endsWith("myadmin/classification_list/")) {
+        $("#classification_list").addClass("active");
+    }
+    if(pathname.indexOf("myadmin/classification_edit/") >= 0){
+        $("#classification_list").addClass("active");
+    }
+    if(pathname.endsWith("myadmin/classification_add/")) {
+        $("#classification_add").addClass("active");
+    }
     if(pathname.endsWith("myadmin/user_list/")) {
         $("#user_list").addClass("active");
     }

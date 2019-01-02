@@ -1,4 +1,4 @@
-from helpers import AuthorRequiredMixin, get_page_data
+from helpers import AuthorRequiredMixin, get_page_list
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth import get_user_model
@@ -125,8 +125,8 @@ class CollectListView(generic.ListView):
         context = super(CollectListView, self).get_context_data(**kwargs)
         paginator = context.get('paginator')
         page = context.get('page_obj')
-        page_data = get_page_data(paginator, page)
-        context.update(page_data)
+        page_list = get_page_list(paginator, page)
+        context['page_list'] = page_list
         return context
     def get_queryset(self):
         user = get_object_or_404(User, pk=self.kwargs.get('pk'))
@@ -144,8 +144,8 @@ class LikeListView(generic.ListView):
         context = super(LikeListView, self).get_context_data(**kwargs)
         paginator = context.get('paginator')
         page = context.get('page_obj')
-        page_data = get_page_data(paginator, page)
-        context.update(page_data)
+        page_list = get_page_list(paginator, page)
+        context['page_list'] = page_list
         return context
 
     def get_queryset(self):
