@@ -160,6 +160,8 @@ STATICFILES_DIRS = (
 )
 
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 # 日志配置
 # LOGGING = {
 #     'version': 1,
