@@ -24,7 +24,7 @@ SECRET_KEY = 'wg*kgsb5$ok23k3t%g)^2mf6++v(o(j1d%-vfd0k(@f(@jg(qh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['v.mypython.me']
+ALLOWED_HOSTS = ['v.mypython.me','127.0.0.1']
 
 
 # Application definition
@@ -160,7 +160,7 @@ STATICFILES_DIRS = (
 )
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 # 日志配置
 # LOGGING = {
