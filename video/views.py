@@ -13,7 +13,6 @@ class IndexView(generic.ListView):
     template_name = 'video/index.html'
     context_object_name = 'video_list'
     paginate_by = 12
-    ordering = ['-create_time']
     c = None
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -21,18 +20,17 @@ class IndexView(generic.ListView):
         paginator = context.get('paginator')
         page = context.get('page_obj')
         page_list = get_page_list(paginator, page)
-        classification_list = Classification.objects.filter(status=1).values()
+        classification_list = Classification.objects.filter(status=True).values()
         context['c'] = self.c
         context['classification_list'] = classification_list
         context['page_list'] = page_list
         return context
 
     def get_queryset(self):
-        self.c = self.request.GET.get("c","")
+        self.c = self.request.GET.get("c", None)
         if self.c:
             classification = get_object_or_404(Classification, pk=self.c)
-            print('---',classification.title)
-            return classification.video_set.all()
+            return classification.video_set.all().order_by('-create_time')
         else:
             return Video.objects.filter(status=0).order_by('-create_time')
 
