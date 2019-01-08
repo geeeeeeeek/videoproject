@@ -1,0 +1,129 @@
+
+
+.ui.tiny.images .image,
+.ui.tiny.images img,
+.ui.tiny.images svg,
+.ui.tiny.image {
+  width: 180px;
+  height: auto;
+  font-size: 0.85714286rem;
+}
+
+.ui.sm.images .image,
+.ui.sm.images img,
+.ui.sm.images svg,
+.ui.sm.image {
+  width: 100px;
+  height: auto;
+  font-size: 0.92857143rem;
+}
+
+
+／*--------修改 pointer-events:none--------*／
+.ui.icon.input > i.icon:not(.link) {
+
+}
+
+/* Inline Label width已修改 */
+
+.ui.form .inline.fields > label,
+.ui.form .inline.fields .field > label,
+.ui.form .inline.fields .field > p,
+.ui.form .inline.field > label,
+.ui.form .inline.field > p {
+  display: inline-block;
+  width: 20%;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  vertical-align: baseline;
+  font-size: 0.92857143em;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87);
+  text-transform: none;
+}
+
+
+
+/* Inline Input  width：auto-->70% */
+
+.ui.form .inline.fields .field > input,
+.ui.form .inline.fields .field > select,
+.ui.form .inline.field > input,
+.ui.form .inline.field > select {
+  display: inline-block;
+  width: 70%;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  vertical-align: middle;
+  font-size: 1em;
+}
+
+
+/*--- Icon ---*/
+
+.ui.vertical.menu .item > i.icon {
+  width: 1.18em;
+  float: none;
+  margin: 0em 0em 0em 0.5em;
+}
+
+
+.ui.card {
+  margin: 1em auto;
+}
+
+.ui.comments .comment .avatar {
+  display: block;
+  width: 2.5em;
+  height: 2.5em;
+  float: left;
+  margin: 0.2em 0em 0em;
+}
+
+/*--------------
+     去掉了  border-radius: 0.25rem;
+---------------*/
+.ui.comments .comment img.avatar,
+.ui.comments .comment .avatar img {
+  display: block;
+  margin: 0em auto;
+  width: 100%;
+  height: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+  .ui.unstackable.items > .item > .image,
+  .ui.unstackable.items > .item > .image > img {
+    width: 80px !important;
+  }
+}
+
+
+
+
+.ui.checkbox {
+  position: relative;
+  display: inline-block;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  outline: none;
+  vertical-align: middle;
+  font-style: normal;
+  min-height: 17px;
+  font-size: 1rem;
+  line-height: 17px;
+  min-width: 17px;
+}
+
+
+.ui.dropdown > .text > img,
+.ui.dropdown > .text > .image,
+.ui.dropdown .menu > .item > .image,
+.ui.dropdown .menu > .item > img {
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+  margin-top: -0.5em;
+  margin-bottom: -0.5em;
+  max-height: 2em;
+}
