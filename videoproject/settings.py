@@ -24,7 +24,7 @@ SECRET_KEY = 'wg*kgsb5$ok23k3t%g)^2mf6++v(o(j1d%-vfd0k(@f(@jg(qh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['v.mypython.me','127.0.0.1','3.0.125.21']
+ALLOWED_HOSTS = ['v.mypython.me','127.0.0.1','3.0.125.21','43.243.86.45']
 
 
 # Application definition
