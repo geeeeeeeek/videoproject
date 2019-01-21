@@ -35,7 +35,6 @@ def get_page_list(paginator, page):
         for i in range(1, paginator.num_pages + 1):
             page_list.append(i)
 
-    # page_data = {'page_list': page_list}
     return page_list
 
 def ajax_required(f):

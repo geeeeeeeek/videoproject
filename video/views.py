@@ -12,7 +12,7 @@ class IndexView(generic.ListView):
     model = Video
     template_name = 'video/index.html'
     context_object_name = 'video_list'
-    paginate_by = 12
+    paginate_by = 4
     c = None
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -37,13 +37,13 @@ class IndexView(generic.ListView):
 
 class SearchListView(generic.ListView):
     model = Video
-    template_name = 'video/search_result.html'
+    template_name = 'video/search.html'
     context_object_name = 'video_list'
-    paginate_by = 4
+    paginate_by = 8
     q = ''
 
     def get_queryset(self):
-        self.q = self.request.GET.get("q","")
+        self.q = self.request.GET.get("q", "")
         return Video.objects.filter(title__contains=self.q).filter(status=0)
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -67,14 +67,10 @@ class VideoDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(VideoDetailView, self).get_context_data(**kwargs)
-        # 推荐数据
-        recommend_list = Video.objects.get_recommend_list()
-        recommend_data = {'recommend_list':recommend_list}
-
         form = CommentForm()
-        form_data = {'form':form}
-        context.update(recommend_data)
-        context.update(form_data)
+        recommend_list = Video.objects.get_recommend_list()
+        context['form'] = form
+        context['recommend_list'] = recommend_list
         return context
 
 @ajax_required

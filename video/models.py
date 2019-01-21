@@ -46,7 +46,7 @@ class Video(models.Model):
     desc = models.CharField(max_length=255,blank=True, null=True)
     classification = models.ForeignKey(Classification, on_delete=models.CASCADE, null=True)
     file = models.FileField(max_length=255)
-    cover = models.FileField(upload_to='cover/',blank=True, null=True)
+    cover = models.ImageField(upload_to='cover/',blank=True, null=True)
     status = models.CharField(max_length=1 ,choices=STATUS_CHOICES, blank=True, null=True)
     view_count = models.IntegerField(default=0, blank=True)
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL,
@@ -66,7 +66,6 @@ class Video(models.Model):
     def switch_like(self, user):
         if user in self.liked.all():
             self.liked.remove(user)
-
         else:
             self.liked.add(user)
 
