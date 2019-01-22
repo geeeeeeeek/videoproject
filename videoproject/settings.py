@@ -76,6 +76,7 @@ CHUNKED_UPLOAD_MAX_BYTES = 100000000
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+# 邮件配置
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 465

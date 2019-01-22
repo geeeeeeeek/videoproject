@@ -6,7 +6,6 @@ from django.db import models
 from video.models import Video
 
 
-
 class CommentQuerySet(models.query.QuerySet):
 
     def get_count(self):

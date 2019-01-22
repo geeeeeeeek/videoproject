@@ -10,7 +10,6 @@ urlpatterns = [
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
     path('subscribe/<int:pk>/', views.SubscribeView.as_view(), name='subscribe'),
     path('feedback/', views.FeedbackView.as_view(), name='feedback'),
-    path('collect_videos/<int:pk>/', views.CollectListView.as_view(), name='collect_videos'),
-    path('like_videos/<int:pk>', views.LikeListView.as_view(), name='like_videos'),
-
+    path('<int:pk>/collect_videos/', views.CollectListView.as_view(), name='collect_videos'),
+    path('<int:pk>/like_videos/', views.LikeListView.as_view(), name='like_videos'),
 ]
