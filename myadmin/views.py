@@ -323,16 +323,16 @@ class SubscribeView(SuperUserRequiredMixin, generic.View):
         # 分组
         email_list = [email_list[i:i + 2] for i in range(0, len(email_list), 2)]
 
-        if email_list is None:
+        if email_list:
+            for to_list in email_list:
+                try:
+                    send_html_email(subject, html_message, to_list)
+                except smtplib.SMTPException as e:
+                    logger.error(e)
+                    return JsonResponse({"code": 1, "msg": "发送失败"})
+            return JsonResponse({"code": 0, "msg": "success"})
+        else:
             return JsonResponse({"code": 1, "msg": "邮件列表为空"})
-
-        for to_list in email_list:
-            try:
-                send_html_email(subject, html_message, to_list)
-            except smtplib.SMTPException as e:
-                logger.error(e)
-                return JsonResponse({"code": 1, "msg": "发送失败"})
-        return JsonResponse({"code": 0, "msg": "success"})
 
 
 class FeedbackListView(AdminUserRequiredMixin, generic.ListView):
