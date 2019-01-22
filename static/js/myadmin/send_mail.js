@@ -3,7 +3,9 @@
 $.getScript("/static/js/csrftoken.js");
 
 $('#send-mail').click(function(){
-    var video_id = $('#video_id').val()
+
+    var video_id = $('.selection.dropdown').dropdown('get value');
+
     if(video_id == ''){
         alert("不能为空");
         return;

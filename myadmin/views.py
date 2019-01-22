@@ -309,7 +309,8 @@ def user_delete(request):
 class SubscribeView(SuperUserRequiredMixin, generic.View):
 
     def get(self, request):
-        return render(request, "myadmin/subscribe.html")
+        video_list = Video.objects.get_published_list()
+        return render(request, "myadmin/subscribe.html" ,{'video_list':video_list})
 
     def post(self, request):
         if not request.user.is_superuser:

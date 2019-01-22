@@ -12,11 +12,29 @@
     <div class="row">
         <div class="v-form-wrap">
             <div class="ui small input focus">
-                <input type="text" id="video_id" required placeholder="请输入视频id">
+                <!--<input type="text" id="video_id" required placeholder="请输入视频id">-->
+                <form class="ui form" novalidate method="post" action=""
+                      enctype="multipart/form-data" role="form">
+                    <div class="field">
+                        <label>请选择要推送的视频</label>
+
+                        <div class="ui selection dropdown">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">请选择</div>
+                            <div class="menu">
+                                {% for item in video_list %}
+                                <div class="item" data-value="{{item.id}}">{{item.title}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <h4>
+                        <div class="ui tiny primary button" id="send-mail" video-id="{{video_id}}">通知订阅用户</div>
+                    </h4>
+                </form>
+
             </div>
-            <h4>
-                <div class="ui tiny primary button" id="send-mail" video-id="{{video_id}}">通知订阅用户</div>
-            </h4>
+
             <div id="send-mail-progress"></div>
         </div>
     </div>
@@ -28,6 +46,12 @@
 {% block javascript %}
 <script>
     var api_send_mail = "{% url 'myadmin:subscribe' %}";
+
+    $(function(){
+        $('.ui .dropdown').dropdown();
+    });
+
+
 </script>
 <script src="{% static 'js/myadmin/send_mail.js' %}"></script>
 {% endblock javascript %}
