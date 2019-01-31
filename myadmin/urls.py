@@ -1,5 +1,4 @@
 from django.urls import path
-
 from . import views
 
 app_name = 'myadmin'
@@ -23,8 +22,8 @@ urlpatterns = [
     path('video_delete/', views.video_delete, name='video_delete'),
 
     #----------------------分类管理----------------------------
-    path('classification_list/', views.ClassificationListView.as_view(), name='classification_list'),
     path('classification_add/', views.ClassificationAddView.as_view(), name='classification_add'),
+    path('classification_list/', views.ClassificationListView.as_view(), name='classification_list'),
     path('classification_edit/<int:pk>/', views.ClassificationEditView.as_view(), name='classification_edit'),
     path('classification_delete/', views.classification_delete, name='classification_delete'),
 
@@ -33,8 +32,8 @@ urlpatterns = [
     path('comment_delete/', views.comment_delete, name='comment_delete'),
 
     #----------------------用户管理-------------------------
-    path('user_list/', views.UserListView.as_view(), name='user_list'),
     path('user_add/', views.UserAddView.as_view(), name='user_add'),
+    path('user_list/', views.UserListView.as_view(), name='user_list'),
     path('user_edit/<int:pk>',views.UserEditView.as_view(), name='user_edit'),
     path('user_delete/', views.user_delete, name='user_delete'),
 
