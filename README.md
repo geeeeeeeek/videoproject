@@ -38,7 +38,7 @@
 
 ### 适合人群
 
-python初级学员、大学生、系统设计人员、
+python初级学员、大学生、系统设计人员
 
 ### 技术栈
 python/django/nginx/mysql/semantic-css/jquery/html
@@ -47,3 +47,9 @@ python/django/nginx/mysql/semantic-css/jquery/html
 [https://github.com/geeeeeeeek/videoproject/](https://github.com/geeeeeeeek/videoproject/)
 
 
+### 开发教程
+[https://mypython.me](https://mypython.me)
+
+### 问题反馈
+
+Email: lovezww2011@gmail.com

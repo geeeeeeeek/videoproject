@@ -24,7 +24,7 @@ SECRET_KEY = 'wg*kgsb5$ok23k3t%g)^2mf6++v(o(j1d%-vfd0k(@f(@jg(qh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['v.mypython.me','127.0.0.1','3.0.125.21','43.243.86.45']
+ALLOWED_HOSTS = ['v.mypython.me']
 
 
 # Application definition
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SITE_URL = 'http://127.0.0.1:8000'
+SITE_URL = 'https://v.mypython.me/'
 
 ROOT_URLCONF = 'videoproject.urls'
 
@@ -111,7 +111,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'video',
 		'USER': 'root',
-		'PASSWORD': '4643830',
+		'PASSWORD': 'your pwd',
 		'HOST':'127.0.0.1',
 		'PORT':'3306',
     }
@@ -162,29 +162,3 @@ STATICFILES_DIRS = (
 
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-
-# 日志配置
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'file': {
-#             'level': 'INFO',
-#             'class': 'logging.FileHandler',
-#             'filename': '/Users/xiaoqingsong/log/django/debug.log', # your log file
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'INFO',
-#             'propagate': True,
-#         },
-#         'my_logger': {
-#             'handlers': ['file'],
-#             'level': 'INFO',
-#             'propagate': True,
-#         },
-#     },
-# }
-
