@@ -53,3 +53,7 @@ python/django/nginx/mysql/semantic-css/jquery/html
 ### 问题反馈
 
 Email: lovezww2011@gmail.com
+
+### 答谢作者
+
+答谢方式：[点击demo右侧广告](https://v.mypython.me/video/detail/26/)
