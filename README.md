@@ -54,6 +54,11 @@ python/django/nginx/mysql/semantic-css/jquery/html
 
 Email: lovezww2011@gmail.com
 
+
+### 数据库文件
+
+[点击下载](https://net936.oss-cn-hangzhou.aliyuncs.com/net936_1/video_2019-02-22.sql)
+
 ### 答谢作者
 
 答谢方式：[点击demo右侧广告](https://v.mypython.me/video/detail/26/)
