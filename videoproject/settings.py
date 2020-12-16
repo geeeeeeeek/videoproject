@@ -109,11 +109,7 @@ WSGI_APPLICATION = 'videoproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'video',
-		'USER': 'root',
-		'PASSWORD': '4643830',
-		'HOST':'127.0.0.1',
-		'PORT':'3306',
+        'NAME': BASE_DIR / 'video.sqlite3',
     }
 }
 
