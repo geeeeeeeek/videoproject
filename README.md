@@ -24,18 +24,6 @@
 
 
 
-### 演示地址
-
-[https://v.mypython.me/](https://v.mypython.me/)
-
-后台管理地址
-
-[https://v.mypython.me/myadmin/](https://v.mypython.me/myadmin/)
-
-测试账号
-
-用户名：admin123456  密码：admin123456
-
 ### 适合人群
 
 python初级学员、大学生、系统设计人员
@@ -50,15 +38,15 @@ python/django/nginx/mysql/semantic-css/jquery/html
 ### 开发教程
 [https://mypython.me](https://mypython.me)
 
-### 问题反馈
+### 问题答疑
 
-Email: lovezww2011@gmail.com
+weixin: java2048
 
 
 ### 数据库文件
 
 [点击下载](https://net936.oss-cn-hangzhou.aliyuncs.com/net936_1/video_2019-02-22.sql)
 
-### 答谢作者
+### 赞助作者
 
-答谢方式：[点击demo右侧广告](https://v.mypython.me/video/detail/26/)
+weixin: java2048
