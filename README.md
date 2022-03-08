@@ -40,7 +40,7 @@ python/django/nginx/mysql/semantic-css/jquery/html
 
 ### 问题答疑
 
-weixin: java2048
+weixin: lengqin1024
 
 
 ### 数据库文件
@@ -49,4 +49,4 @@ weixin: java2048
 
 ### 赞助作者
 
-weixin: java2048
+weixin: lengqin1024
