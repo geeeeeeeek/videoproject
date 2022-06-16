@@ -24,8 +24,7 @@ SECRET_KEY = 'wg*kgsb5$ok23k3t%g)^2mf6++v(o(j1d%-vfd0k(@f(@jg(qh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['v.mypython.me']
-
+ALLOWED_HOSTS = ['127.0.0.1', '*']
 
 # Application definition
 
@@ -55,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SITE_URL = 'https://v.mypython.me/'
+SITE_URL = '127.0.0.1'
 
 ROOT_URLCONF = 'videoproject.urls'
 
@@ -68,7 +67,7 @@ LOGIN_REDIRECT_URL = '/video/index'
 THUMBNAIL_DEBUG = True
 
 # 文件上传路径
-MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\','/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\', '/')
 MEDIA_URL = '/upload/'
 
 # 上传视频最大尺寸
@@ -80,9 +79,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'net936@163.com'
+EMAIL_HOST_USER = 'xxx@163.com'
 EMAIL_HOST_PASSWORD = 'your pwd'
-
 
 TEMPLATES = [
     {
@@ -102,7 +100,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'videoproject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -110,13 +107,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'video',
-		'USER': 'root',
-		'PASSWORD': '4643830',
-		'HOST':'127.0.0.1',
-		'PORT':'3306',
+        'USER': 'root',
+        'PASSWORD': '4643830',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -136,7 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -150,7 +145,6 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -159,6 +153,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static/")

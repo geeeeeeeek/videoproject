@@ -1,7 +1,7 @@
 
 ### 项目名称
 
-基于django的视频点播网站开发
+基于python的视频点播网站开发
 
 ### 项目背景
 
@@ -22,6 +22,24 @@
 - 用户管理
 - 反馈管理
 
+**首页展示**
+
+![](https://github.com/geeeeeeeek/videoproject/blob/master/static/img/demo01.png)
+
+
+**详情页**
+
+![](https://github.com/geeeeeeeek/videoproject/blob/master/static/img/demo02.png)
+
+
+**后台首页**
+
+![](https://github.com/geeeeeeeek/videoproject/blob/master/static/img/demo03.png)
+
+
+**视频管理**
+
+![](https://github.com/geeeeeeeek/videoproject/blob/master/static/img/demo04.png)
 
 
 ### 适合人群
@@ -34,19 +52,19 @@ python/django/nginx/mysql/semantic-css/jquery/html
 ### 源码
 [https://github.com/geeeeeeeek/videoproject/](https://github.com/geeeeeeeek/videoproject/)
 
+### 运行项目
 
-### 开发教程
-[https://mypython.me](https://mypython.me)
+运行 python manage.py runserver 即可
 
 ### 问题答疑
 
-weixin: java2048
+weixin: lengqin1024
 
 
 ### 数据库文件
 
 [点击下载](https://net936.oss-cn-hangzhou.aliyuncs.com/net936_1/video_2019-02-22.sql)
 
-### 赞助作者
+### 付费咨询
 
-weixin: java2048
+微信: lengqin1024
