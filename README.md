@@ -53,7 +53,7 @@ python/django/nginx/mysql/semantic-css/jquery/html
 ### 源码
 [https://github.com/geeeeeeeek/videoproject/](https://github.com/geeeeeeeek/videoproject/)
 
-###安装依赖库
+### 安装依赖库
 
 pip install -r requirement.txt
 
