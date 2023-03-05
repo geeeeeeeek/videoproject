@@ -22,9 +22,12 @@
 - 用户管理
 - 反馈管理
 
-**示例预览**
+**演示地址**
 
+- 前台演示
 [http://1.117.171.66:8000/](http://1.117.171.66:8000/)
+- 后台演示
+[http://1.117.171.66:8000/myadmin](http://1.117.171.66:8000/myadmin)
 
 **首页展示**
 
@@ -34,11 +37,6 @@
 **详情页**
 
 ![](https://github.com/geeeeeeeek/videoproject/blob/master/static/img/demo02.png)
-
-
-**后台首页**
-
-![](https://github.com/geeeeeeeek/videoproject/blob/master/static/img/demo03.png)
 
 
 **视频管理**
