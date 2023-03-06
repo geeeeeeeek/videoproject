@@ -29,6 +29,11 @@
 - 后台演示
 [http://1.117.171.66:8000/myadmin](http://1.117.171.66:8000/myadmin)
 
+**后台测试帐号**
+
+用户名：admin123
+密码：admin123
+
 **首页展示**
 
 ![](https://github.com/geeeeeeeek/videoproject/blob/master/static/img/demo01.png)
