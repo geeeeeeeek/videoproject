@@ -199,3 +199,10 @@ body {
 line-height:34px;
 color:#000;
 }
+
+.del {
+ width:100px;
+ height: 40px;
+ position: absolute;
+ right: 40px;
+}

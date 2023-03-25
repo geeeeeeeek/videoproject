@@ -3,6 +3,7 @@ $(function () {
     // 写入csrf
     $.getScript("/static/js/csrftoken.js");
 
+
     // 点赞
     $("#like").click(function(){
       var video_id = $("#like").attr("video-id");
