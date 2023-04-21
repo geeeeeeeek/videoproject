@@ -59,11 +59,17 @@ python/django/nginx/mysql/semantic-css/jquery/html
 ### 源码
 [https://github.com/geeeeeeeek/videoproject/](https://github.com/geeeeeeeek/videoproject/)
 
-### 安装依赖库
+### 开发文档
+
+[点击查看](https://github.com/geeeeeeeek/videoproject/blob/master/doc/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.md)
+
+### 部署步骤
+
+- 1.安装依赖库
 
 pip install -r requirement.txt
 
-### 运行项目
+- 2.运行项目
 
 运行 python manage.py runserver 即可
 
