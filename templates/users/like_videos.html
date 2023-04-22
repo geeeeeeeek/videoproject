@@ -17,7 +17,7 @@
         </div>
         <div class="middle aligned content">
             <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>
-            <button class="del" onclick="unlike({{item.id}})">删除</button>
+            <a class="del" onclick="unlike({{item.id}})">取消喜欢</a>
         </div>
     </div>
     {% empty %}
@@ -40,6 +40,15 @@
     $.getScript("/static/js/csrftoken.js");
 
     function unlike(id) {
+        var x;
+        var r=confirm("确定删除？");
+        if (r==true){
+            console.log('click ok');
+        }
+        else{
+            return;
+        }
+
         $.ajax({
             url: '/video/like/',
             data: {
