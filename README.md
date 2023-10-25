@@ -25,9 +25,9 @@
 **演示地址**
 
 - 前台演示
-[http://1.117.171.66:8000/](http://1.117.171.66:8000/)
+[http://v.gitapp.cn/](http://v.gitapp.cn/)
 - 后台演示
-[http://1.117.171.66:8000/myadmin](http://1.117.171.66:8000/myadmin)
+[http://v.gitapp.cn/myadmin](http://v.gitapp.cn/myadmin)
 
 **后台测试帐号**
 
