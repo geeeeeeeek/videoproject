@@ -56,9 +56,45 @@ class SearchListView(generic.ListView):
         return context
 
 
+class VideoDetailView(generic.DetailView):
+    model = Video
+    template_name = 'video/detail.html'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object()
+        obj.increase_view_count()
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(VideoDetailView, self).get_context_data(**kwargs)
+        form = CommentForm()
+        recommend_list = Video.objects.get_recommend_list()
+        context['form'] = form
+        context['recommend_list'] = recommend_list
+        return context
+
+@ajax_required
+@require_http_methods(["POST"])
+def like(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"code": 1, "msg": "请先登录"})
+    video_id = request.POST['video_id']
+    video = Video.objects.get(pk=video_id)
+    user = request.user
+    video.switch_like(user)
+    return JsonResponse({"code": 0, "likes": video.count_likers(), "user_liked": video.user_liked(user)})
 
 
-
+@ajax_required
+@require_http_methods(["POST"])
+def collect(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"code": 1, "msg": "请先登录"})
+    video_id = request.POST['video_id']
+    video = Video.objects.get(pk=video_id)
+    user = request.user
+    video.switch_collect(user)
+    return JsonResponse({"code": 0, "collects": video.count_collecters(), "user_collected": video.user_collected(user)})
 
 
 
