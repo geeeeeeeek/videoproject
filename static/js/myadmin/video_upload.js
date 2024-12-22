@@ -44,11 +44,10 @@ $("#chunked_upload").fileupload({
     console.log('file size --> ' + fileSize);
     console.log('type --> ' + type);
 
-    // 若想限制大小，解开注释即可
-//    if(fileSize > 10000000000){
-//        alert('文件太大了，请上传10000M以内的文件');
-//        return;
-//    }
+    if(fileSize > 100000000){
+        alert('文件太大了，请上传100M以内的文件');
+        return;
+    }
 
     if(!type.startsWith("video/")){
         alert('视频格式不正确');

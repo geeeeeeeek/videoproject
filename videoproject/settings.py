@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'sorl.thumbnail',
     'chunked_upload',
-    'video',
-    'users',
-    'myadmin',
-    'comment',
+    'video.apps.VideoConfig',
+    'users.apps.UsersConfig',
+    'myadmin.apps.MyadminConfig',
+    'comment.apps.CommentConfig',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +71,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\', '/')
 MEDIA_URL = '/upload/'
 
 # 上传视频最大尺寸
-CHUNKED_UPLOAD_MAX_BYTES = 10000000000
+CHUNKED_UPLOAD_MAX_BYTES = 100000000
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

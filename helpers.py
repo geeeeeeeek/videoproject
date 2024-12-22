@@ -10,6 +10,7 @@ from django.views.generic import View
 
 
 def get_page_list(paginator, page):
+
     """
     分页逻辑
     if 页数>=10:
@@ -36,10 +37,8 @@ def get_page_list(paginator, page):
 
     return page_list
 
-
 def ajax_required(f):
     """Not a mixin, but a nice decorator to validate than a request is AJAX"""
-
     def wrap(request, *args, **kwargs):
         if not request.is_ajax():
             return HttpResponseBadRequest()
@@ -50,7 +49,6 @@ def ajax_required(f):
     wrap.__name__ = f.__name__
     return wrap
 
-
 def send_html_email(subject, html_message, to_list):
     plain_message = strip_tags(html_message)
     from_email = settings.EMAIL_HOST_USER
@@ -58,6 +56,7 @@ def send_html_email(subject, html_message, to_list):
 
 
 def send_email(subject, content, to_list):
+
     """
     Example:
     subject = 'test subject'
@@ -71,7 +70,7 @@ def send_email(subject, content, to_list):
         # do not forget set password
         print("--> is sending email")
         send_mass_mail((message,))
-    except smtplib.SMTPException:
+    except smtplib.SMTPException :
         print("--> send fail")
         return HttpResponse("fail")
     else:
@@ -92,7 +91,6 @@ class AdminUserRequiredMixin(View):
     """
     管理员拦截器
     """
-
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_staff:
             return redirect('myadmin:login')
@@ -104,9 +102,9 @@ class SuperUserRequiredMixin(View):
     """
     超级用户拦截器
     """
-
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_superuser:
             return HttpResponse('无权限')
 
         return super().dispatch(request, *args, **kwargs)
+

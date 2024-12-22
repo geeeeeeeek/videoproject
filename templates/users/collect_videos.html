@@ -17,7 +17,6 @@
         </div>
         <div class="middle aligned content">
             <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>
-            <a class="del" onclick="uncollect({{item.id}})">取消收藏</a>
         </div>
     </div>
     {% empty %}
@@ -29,53 +28,5 @@
 {% include "base/page_nav.html" %}
 
 {% endblock content %}
-
-{% block javascript %}
-
-<script>
-
-    // 写入csrf
-    $.getScript("/static/js/csrftoken.js");
-
-    function uncollect(id) {
-
-        var x;
-        var r=confirm("确定删除？");
-        if (r==true){
-            console.log('click ok');
-        }
-        else{
-            return;
-        }
-
-        $.ajax({
-            url: '/video/collect/',
-            data: {
-                video_id: id,
-                'csrf_token': csrftoken
-            },
-            type: 'POST',
-            dataType: 'json',
-            success: function (data) {
-                var code = data.code
-                if(code == 0){
-                    alert('删除成功')
-                    window.location.reload()
-                }else{
-                    var msg = data.msg
-                    alert(msg)
-                }
-
-            },
-            error: function(data){
-              alert("收藏失败")
-            }
-        });
-    }
-</script>
-
-<script src="{% static 'js/detail.js' %}"></script>
-{% endblock javascript %}
-
 
 
