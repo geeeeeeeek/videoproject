@@ -15,6 +15,23 @@ jobs:
       matrix:
         python-version: [3.8, 3.9]
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: video
+          MYSQL_USER: root
+          MYSQL_PASSWORD: 4643830
+          MYSQL_ROOT_PASSWORD: 4643830
+        ports:
+          - 3306:3306
+        # This can be used to ensure MySQL is ready for accepting connections
+        options: >-
+          --health-cmd "mysqladmin --protocol=TCP ping -h localhost --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
