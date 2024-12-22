@@ -41,6 +41,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Run migrations
+      env:
+        DATABASE_URL: mysql://root:4643830@localhost/video
+      run: |
+        python manage.py migrate
+        
     - name: Run Tests
       run: |
         python manage.py test --keepdb
