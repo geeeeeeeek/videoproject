@@ -20,7 +20,6 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_DATABASE: video
-          MYSQL_USER: root
           MYSQL_PASSWORD: 4643830
           MYSQL_ROOT_PASSWORD: 4643830
         ports:
