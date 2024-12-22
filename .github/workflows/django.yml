@@ -22,6 +22,7 @@ jobs:
           MYSQL_DATABASE: video
           MYSQL_USER: root
           MYSQL_PASSWORD: 4643830
+          MYSQL_ROOT_PASSWORD: 4643830
         ports:
           - 3306:3306
         # This can be used to ensure MySQL is ready for accepting connections
