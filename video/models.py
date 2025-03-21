@@ -46,7 +46,7 @@ class Video(models.Model):
         ('1', '未发布'),
     )
     title = models.CharField(max_length=100,blank=True, null=True)
-    desc = models.CharField(max_length=255,blank=True, null=True)
+    desc = models.CharField(max_length=10,blank=True, null=True)
     classification = models.ForeignKey(Classification, on_delete=models.CASCADE, null=True)
     file = models.FileField(max_length=255)
     cover = models.ImageField(upload_to='cover/',blank=True, null=True)
