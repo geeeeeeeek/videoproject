@@ -279,7 +279,7 @@ DROP TABLE IF EXISTS `v_classification`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `v_classification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL,
+  `title` varchar(1) DEFAULT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -308,7 +308,7 @@ CREATE TABLE `v_comment` (
   `avatar` varchar(100) DEFAULT NULL,
   `content` varchar(100) NOT NULL,
   `timestamp` datetime(6) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(1) NOT NULL,
   `video_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `v_comment_user_id_58e38472_fk_v_user_id` (`user_id`),
