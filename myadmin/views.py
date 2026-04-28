@@ -60,9 +60,8 @@ class IndexView(AdminUserRequiredMixin, generic.View):
         comment_count = Comment.objects.get_count()
         comment_today_count = Comment.objects.get_today_count()
         
-        from django.db.models import Count
-        collect_count = Video.objects.aggregate(total=Count('collected'))['total']
-        like_count = Video.objects.aggregate(total=Count('liked'))['total']
+        collect_count = Video.collected.through.objects.count()
+        like_count = Video.liked.through.objects.count()
         
         data = {"video_count": video_count,
                 "video_has_published_count": video_has_published_count,

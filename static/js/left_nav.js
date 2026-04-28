@@ -13,4 +13,10 @@ $(function(){
     if(pathname.indexOf("users/feedback/") >= 0 ) {
         $("#id_feedback").addClass("active");
     }
+    if(pathname.indexOf("collect_videos/") >= 0 ) {
+        $("#id_collect").addClass("active");
+    }
+    if(pathname.indexOf("like_videos/") >= 0 ) {
+        $("#id_like").addClass("active");
+    }
 });

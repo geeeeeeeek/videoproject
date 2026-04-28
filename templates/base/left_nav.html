@@ -1,3 +1,4 @@
+{% if user.is_authenticated %}
 <div class="ui secondary vertical pointing menu">
     <a id="id_profile" class="link item" href="{% url 'users:profile' user.pk %}">
         <i class="grey user icon"></i>
@@ -24,3 +25,4 @@
         <span class="v-nav-title">反馈与建议</span>
     </a>
 </div>
+{% endif %}

@@ -115,11 +115,14 @@ class FeedbackView(LoginRequiredMixin, generic.CreateView):
         messages.success(self.request, "提交成功")
         return reverse('users:feedback')
 
-class CollectListView(generic.ListView):
+class CollectListView(LoginRequiredMixin, AuthorRequiredMixin, generic.ListView):
     model = User
     template_name = 'users/collect_videos.html'
     context_object_name = 'video_list'
     paginate_by = 10
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(User, pk=self.kwargs.get('pk'))
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CollectListView, self).get_context_data(**kwargs)
@@ -129,16 +132,19 @@ class CollectListView(generic.ListView):
         context['page_list'] = page_list
         return context
     def get_queryset(self):
-        user = get_object_or_404(User, pk=self.kwargs.get('pk'))
+        user = self.get_object()
         videos = user.collected_videos.all()
         return videos
 
 
-class LikeListView(generic.ListView):
+class LikeListView(LoginRequiredMixin, AuthorRequiredMixin, generic.ListView):
     model = User
     template_name = 'users/like_videos.html'
     context_object_name = 'video_list'
     paginate_by = 10
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(User, pk=self.kwargs.get('pk'))
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(LikeListView, self).get_context_data(**kwargs)
@@ -149,6 +155,6 @@ class LikeListView(generic.ListView):
         return context
 
     def get_queryset(self):
-        user = get_object_or_404(User, pk=self.kwargs.get('pk'))
+        user = self.get_object()
         videos = user.liked_videos.all()
         return videos
