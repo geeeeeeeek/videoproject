@@ -1,3 +1,4 @@
+{% if user.is_authenticated %}
 <div class="ui secondary vertical pointing menu">
     <a id="id_profile" class="link item" href="{% url 'users:profile' user.pk %}">
         <i class="grey user icon"></i>
@@ -6,6 +7,14 @@
     <a id="id_password" class="link item" href="{% url 'users:change_password' %}">
         <i class="grey edit icon"></i>
         <span class="v-nav-title">修改密码</span>
+    </a>
+    <a id="id_collect" class="link item" href="{% url 'users:collect_videos' user.pk %}">
+        <i class="grey bookmark icon"></i>
+        <span class="v-nav-title">我的收藏</span>
+    </a>
+    <a id="id_like" class="link item" href="{% url 'users:like_videos' user.pk %}">
+        <i class="grey heart icon"></i>
+        <span class="v-nav-title">我的喜欢</span>
     </a>
     <a id="id_subscribe" class="link item" href="{% url 'users:subscribe' user.pk %}">
         <i class="grey rss icon"></i>
@@ -16,3 +25,4 @@
         <span class="v-nav-title">反馈与建议</span>
     </a>
 </div>
+{% endif %}

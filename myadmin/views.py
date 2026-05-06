@@ -59,13 +59,19 @@ class IndexView(AdminUserRequiredMixin, generic.View):
         user_today_count = User.objects.exclude(date_joined__lt=datetime.date.today()).count()
         comment_count = Comment.objects.get_count()
         comment_today_count = Comment.objects.get_today_count()
+        
+        collect_count = Video.collected.through.objects.count()
+        like_count = Video.liked.through.objects.count()
+        
         data = {"video_count": video_count,
                 "video_has_published_count": video_has_published_count,
                 "video_not_published_count": video_not_published_count,
                 "user_count": user_count,
                 "user_today_count": user_today_count,
                 "comment_count": comment_count,
-                "comment_today_count": comment_today_count}
+                "comment_today_count": comment_today_count,
+                "collect_count": collect_count,
+                "like_count": like_count}
         return render(self.request, 'myadmin/index.html', data)
 
 
