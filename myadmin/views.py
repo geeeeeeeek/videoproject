@@ -59,13 +59,20 @@ class IndexView(AdminUserRequiredMixin, generic.View):
         user_today_count = User.objects.exclude(date_joined__lt=datetime.date.today()).count()
         comment_count = Comment.objects.get_count()
         comment_today_count = Comment.objects.get_today_count()
+        
+        from django.db.models import Count
+        collect_count = Video.objects.aggregate(total=Count('collected'))['total']
+        like_count = Video.objects.aggregate(total=Count('liked'))['total']
+        
         data = {"video_count": video_count,
                 "video_has_published_count": video_has_published_count,
                 "video_not_published_count": video_not_published_count,
                 "user_count": user_count,
                 "user_today_count": user_today_count,
                 "comment_count": comment_count,
-                "comment_today_count": comment_today_count}
+                "comment_today_count": comment_today_count,
+                "collect_count": collect_count,
+                "like_count": like_count}
         return render(self.request, 'myadmin/index.html', data)
 
 

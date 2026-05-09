@@ -17,7 +17,7 @@
     <div class="row">
         <table class="ui unstackable single line striped selectable table">
             <thead>
-            <tr><th>#id</th><th>标题</th><th>分类</th><th>状态</th><th>访问次数</th><th>创建时间</th><th>操作</th></tr>
+            <tr><th>#id</th><th>标题</th><th>分类</th><th>状态</th><th>访问次数</th><th>收藏次数</th><th>创建时间</th><th>操作</th></tr>
             </thead>
             <tbody class="video-list">
 
@@ -28,6 +28,7 @@
                 <td> {{item.classification|default:""}}</td>
                 <td> {{item.get_status_display}}</td>
                 <td> {{item.view_count}}</td>
+                <td> {{item.count_collecters}}</td>
                 <td> {{item.create_time|date:'Y-m-d H:i'}}</td>
                 <td>
                     <a class="ui primary button video-edit" href="{% url 'myadmin:video_edit' item.id %}">编辑</a>
@@ -42,7 +43,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <th colspan="6">
+                <th colspan="8">
                     {% include 'myadmin/page_nav.html' %}
                 </th>
             </tr>
